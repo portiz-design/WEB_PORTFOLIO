@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pedro Ortiz Cazal — Architecture Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Kumbh+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- SAME CSS AS ABOUT (unchanged) --- */
+    :root{
+      --bg:#ffffff;
+      --text:#111;
+      --muted:#090909;
+      --wide-max: 1600px;
+      --wide-pad: 64px;
+      --thumb-gap: 26px;
+      --font-title: "Space Grotesk", system-ui, sans-serif;
+      --font-ui: "Kumbh Sans", system-ui, sans-serif;
+      --header-pad-top: 56px;
+      --header-pad-bottom: 28px;
+      --header-nav-push: 120px;
+    }
+
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+
+    body{
+      cursor: url("cursor-black.svg") 2 2, auto;
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: var(--font-ui);
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    *{
+      cursor: url("cursor-black.svg") 2 2, auto !important;
+    }
+
+    main{ flex:1 }
+
+    .container-wide{
+      max-width: var(--wide-max);
+      margin: 0 auto;
+      padding: 0 var(--wide-pad);
+    }
+
+    .site-header{ padding: var(--header-pad-top) 0 var(--header-pad-bottom); }
+
+    .header-inner{
+      display:flex;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand-title{
+      font-family: var(--font-title);
+      font-size:40px;
+      font-weight:600;
+      letter-spacing:-0.1em;
+      line-height:0.72;
+      text-transform:uppercase;
+      margin:0;
+    }
+
+    .brand-subtitle{
+      font-size:16px;
+      color:#222;
+      margin:4px 0 0;
+    }
+
+    .nav{
+      display:flex;
+      gap:22px;
+      margin-left: var(--header-nav-push);
+    }
+
+    .nav-link{
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:500;
+      color:var(--muted);
+      text-decoration:none;
+    }
+
+    .nav-link:hover{ color:var(--text); }
+
+    .nav-link.is-active{
+      color:var(--text);
+      font-weight:600;
+    }
+
+    .site-footer{ padding:14px 0 26px; }
+
+    .footer-inner{
+      display:flex;
+      justify-content:flex-end;
+    }
+
+    .footer-icons{
+      display:flex;
+      gap:16px;
+      align-items:center;
+    }
+
+    .icon-btn{
+      width:32px;
+      height:32px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      text-decoration:none;
+      position:relative;
+    }
+
+    .icon-btn:hover{ color:var(--text); }
+
+    .home-square{
+      width:33px;
+      height:33px;
+      background:#111;
+    }
+
+    .home-square-btn .home-label{
+      position:absolute;
+      top:36px;
+      left:50%;
+      transform:translateX(-50%);
+      font-size:9px;
+      letter-spacing:.16em;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container-wide header-inner">
+    <div>
+      <div class="brand-title">PEDRO ORTIZ CAZAL</div>
+      <div class="brand-subtitle">Architecture Portfolio</div>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link" href="index.html">HOME</a>
+      <a class="nav-link" href="about.html">ABOUT</a>
+      <a class="nav-link" href="projects.html">PROJECTS</a>
+      <a class="nav-link" href="resume.html">RESUME</a>
+      <a class="nav-link is-active" href="press.html">PRESS</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container-wide">
+  <section style="margin-top:66px;">
+    <div style="max-width:860px; padding-left:22px;">
+      <h1>Press</h1>
+      <p>This is the press page.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container-wide footer-inner">
+    <div class="footer-icons">
+      <a class="icon-btn home-square-btn" href="index.html"><span class="home-square"></span><span class="home-label">HOME</span></a>
+
+      <a class="icon-btn" href="https://instagram.com/peortizc" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24">
+          <rect x="5" y="5" width="14" height="14" rx="3"/>
+          <circle cx="12" cy="12" r="3.5"/>
+        </svg>
+      </a>
+
+      <a class="icon-btn" href="mailto:portizca@risd.edu">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M4 7h16v10H4z"/>
+          <path d="M4 7l8 6 8-6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

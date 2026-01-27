@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pedro Ortiz Cazal — Architecture Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Kumbh+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111;
+      --muted:#090909;
+
+      --wide-max: 1600px;
+      --wide-pad: 64px;
+
+      --gap: var(--thumb-gap);
+      --thumb-gap: 26px;
+
+      --font-title: "Space Grotesk", system-ui, sans-serif;
+      --font-ui: "Kumbh Sans", system-ui, sans-serif;
+
+      --icon-size: 33px;
+      --icon-stroke: 2.4;
+
+      --home-label-gap: 4px;
+
+      /* IMPORTANT: this now actually controls the “end of PRESS” alignment */
+      --press-align-inset: 12px; /* try 12–28px */
+
+      --viewer-h: 520px;
+
+      --hero-col: 860px;
+      --thumb-panel: 420px;
+
+      --thumb-ratio: 4 / 3;
+
+      --thumb-rows: 5;
+      --thumb-scale: 0.89;
+
+      /* ===== compute thumb size so 5 rows + 4 gaps == hero height ===== */
+      --thumb-h: calc(
+        (var(--viewer-h) - ((var(--thumb-rows) - 1) * var(--thumb-gap)))
+        / var(--thumb-rows)
+      );
+      --thumb-w: calc(var(--thumb-h) * (4 / 3)); /* matches --thumb-ratio (4:3) */
+
+      /* ===== editorial whitespace + subtle UI tuning (reference-like) ===== */
+      --header-pad-top: 56px;
+      --header-pad-bottom: 28px;
+      --header-title-gap: 4px;
+      --header-nav-push: 120px;
+
+      --gallery-top-gap: 66px;
+      --hero-frame-pad-x: 22px;
+      --hero-frame-pad-y: 0px;
+      --hero-arrow-outset: 14px;
+
+      --dot-size: 5px;
+      --dot-gap: 8px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+      cursor: url("cursor-black.svg") 2 2, auto;
+
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: var(--font-ui);
+
+      /* sticky footer behavior */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Keep the custom black cursor EVERYWHERE (no hand cursor) */
+    *{
+      cursor: url("cursor-black.svg") 2 2, auto !important;
+    }
+
+    main{ flex: 1; } /* makes footer stay visible on short pages */
+
+    .container-wide{
+      max-width: var(--wide-max);
+      margin: 0 auto;
+      padding: 0 var(--wide-pad);
+    }
+
+    /* ================= HEADER ================= */
+    .site-header{ padding: var(--header-pad-top) 0 var(--header-pad-bottom); }
+
+    .header-inner{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand-title{
+      font-family: var(--font-title);
+      font-size: 40px;
+      font-weight: 600;
+      letter-spacing: -0.1em;
+      line-height: 0.72;
+      text-transform: uppercase;
+      margin:0;
+    }
+
+    .brand-subtitle{
+      margin-top: var(--header-title-gap);
+      font-size:16px;
+      font-weight:400;
+      letter-spacing: .02em;
+      line-height: 1.1;
+      margin-bottom:0;
+      color: #222;
+    }
+
+    .nav{
+      display:flex;
+      gap:22px;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+      margin-left: var(--header-nav-push);
+    }
+
+    .nav-link{
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:500;
+      color:var(--muted);
+      text-decoration:none;
+    }
+
+    .nav-link:hover{ color:var(--text); }
+
+
+.nav-link.is-active{
+color: var(--text);
+font-weight: 600; /* bolder when selected */
+}
+
+    /* ================= GALLERY ================= */
+    .gallery{
+      margin: var(--gallery-top-gap) 0 40px;
+
+      display: grid;
+      grid-template-columns: var(--hero-col) max-content;
+
+      /* ✅ CHANGED: make hero↔thumbs spacing equal to thumb grid spacing */
+      gap: var(--thumb-gap);
+
+      align-items: start;
+
+      justify-content: start;
+      will-change: transform;
+    }
+
+    .viewer{
+      margin:0;
+      grid-column: 1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+
+    .viewer-wrap{
+      width:100%;
+
+      /* ✅ CHANGED: keep the “editorial” left frame, remove RIGHT padding so spacing matches */
+      padding: var(--hero-frame-pad-y) 0 var(--hero-frame-pad-y) var(--hero-frame-pad-x);
+
+      background: transparent;
+    }
+
+    .viewer-frame{
+      position:relative;
+      width:100%;
+      height:var(--viewer-h);
+      background:#f2f2f2;
+      border:1px solid #e3e3e3;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* ===== NEW: continuous horizontal band (track) ===== */
+    .viewer-track{
+      width:100%;
+      height:100%;
+      display:flex;
+      transform: translateX(0%);
+      will-change: transform;
+      transition: transform 520ms cubic-bezier(.22,.61,.36,1);
+    }
+
+    .viewer-slide{
+      flex: 0 0 100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .viewer-slide img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .viewer-track{ transition:none; }
+    }
+
+    .viewer-placeholder{
+position:absolute;
+inset:0;
+display:none; /* ✅ hide by default */
+align-items:center;
+justify-content:center;
+font-size:12px;
+letter-spacing:.18em;
+color:#9a9a9a;
+text-transform:uppercase;
+pointer-events:none;
+z-index:2;
+}
+
+    .viewer-arrow{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:32px;
+      height:32px;
+      border-radius:999px;
+      border:1px solid #e3e3e3;
+      background:rgba(255,255,255,.82);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      padding:0;
+      z-index:3;
+      backdrop-filter: blur(2px);
+    }
+
+    .viewer-arrow:hover{ background:rgba(255,255,255,.96); }
+
+    .viewer-arrow.is-prev{ left: calc(-1 * var(--hero-arrow-outset)); }
+    .viewer-arrow.is-next{ right: calc(-1 * var(--hero-arrow-outset)); }
+
+    .viewer-arrow svg{ width:16px; height:16px; }
+
+    .viewer-arrow svg *{
+      stroke:#111;
+      stroke-width:2.2;
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .dots{
+      margin-top:16px;
+      display:flex;
+      justify-content:center;
+      gap: var(--dot-gap);
+      min-height:10px;
+    }
+
+    .dot{
+      width: var(--dot-size);
+      height: var(--dot-size);
+      border-radius:999px;
+      background:#e0e0e0;
+      border:none;
+      cursor:pointer;
+      padding:0;
+    }
+
+    .dot.is-active{ background:#111; }
+
+    .thumbs{
+      grid-column: 2;
+      justify-self: end;
+      height: var(--viewer-h);
+
+      display: grid;
+      grid-template-columns: repeat(3, var(--thumb-w));
+      grid-template-rows: repeat(var(--thumb-rows), var(--thumb-h));
+      gap: var(--thumb-gap);
+      align-content: stretch;
+
+      margin-top: 0;
+    }
+
+    .thumb{
+      border:none;
+      background:none;
+      padding:0;
+      cursor:pointer;
+
+      width: var(--thumb-w);
+      height: var(--thumb-h);
+      overflow:hidden;
+      line-height:0;
+
+      /* minimalist frame for selected state */
+      outline: 0 solid transparent;
+      outline-offset: 2px;
+    }
+
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+
+      opacity: .88;
+      filter: grayscale(1) saturate(.9) contrast(.98);
+      transition: opacity .18s ease, filter .18s ease, transform .18s ease;
+    }
+
+    .thumb:hover img{
+      opacity: 1;
+      filter: grayscale(0) saturate(1) contrast(1.02);
+      transform: translateY(-1px);
+    }
+
+    .thumb.is-selected{
+      outline: 1.5px solid #111; /* minimalist black frame */
+    }
+
+    .thumb.is-selected img{
+      opacity: 1;
+      filter: grayscale(0) saturate(1) contrast(1.02);
+      transform: none;
+    }
+
+    /* ================= FOOTER (icons unchanged) ================= */
+    .site-footer{ padding:14px 0 26px; }
+
+    .footer-inner{
+      display:flex;
+      justify-content:flex-end;
+    }
+
+    .footer-icons{
+      display:flex;
+      gap:16px;
+      align-items:center;
+    }
+
+    .icon-btn{
+      width:32px;
+      height:32px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      text-decoration:none;
+      position:relative;
+    }
+
+    .icon-btn:hover{ color:var(--text); }
+
+    .icon{
+      width:var(--icon-size);
+      height:var(--icon-size);
+    }
+
+    .icon *{
+      stroke-width: var(--icon-stroke);
+      stroke: currentColor;
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .home-square{
+      width: var(--icon-size);
+      height: var(--icon-size);
+      background:#111;
+    }
+
+    .home-square-btn .home-label{
+      position:absolute;
+      top: calc(100% + var(--home-label-gap));
+      left: 50%;
+      transform: translateX(-50%);
+      font-size:9px;
+      letter-spacing:.16em;
+      pointer-events:none;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container-wide header-inner">
+    <div>
+      <div class="brand-title">PEDRO ORTIZ CAZAL</div>
+      <div class="brand-subtitle">Architecture Portfolio</div>
+    </div>
+
+    <nav class="nav">
+<a class="nav-link is-active" href="index.html">HOME</a>
+<a class="nav-link" href="about.html">ABOUT</a>
+<a class="nav-link" href="projects.html">PROJECTS</a>
+<a class="nav-link" href="resume.html">RESUME</a>
+<a class="nav-link" href="press.html">PRESS</a>
+</nav>
+  </div>
+</header>
+
+<main class="container-wide">
+  <section class="gallery">
+    <figure class="viewer">
+      <div class="viewer-wrap">
+        <div class="viewer-frame">
+
+          <!-- ✅ NEW: horizontal band container -->
+          <div class="viewer-track" id="viewerTrack"></div>
+
+          <div class="viewer-placeholder" id="viewerPlaceholder">IMAGE PREVIEW</div>
+
+          <button class="viewer-arrow is-prev" id="prevBtn" aria-label="Previous">
+            <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+
+          <button class="viewer-arrow is-next" id="nextBtn" aria-label="Next">
+            <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="dots" id="dots"></div>
+    </figure>
+
+    <aside class="thumbs">
+      <button class="thumb is-selected" data-hero="img/hero-001.jpg"><img src="img/thumb-01.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-02.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-03.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-04.jpg"><img src="img/thumb-04.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-05.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-06.jpeg"><img src="img/thumb-06.jpeg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-07.jpeg"><img src="img/thumb-07.jpeg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-08.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-09.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-10.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-11.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-12.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-13.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-14.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-15.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+    </aside>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container-wide footer-inner">
+    <div class="footer-icons">
+      <a class="icon-btn home-square-btn" href="index.html"><span class="home-square"></span><span class="home-label">HOME</span></a>
+      <a class="icon-btn" href="https://instagram.com/peortizc" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3"/><circle cx="12" cy="12" r="3.5"/></svg>
+      </a>
+      <a class="icon-btn" href="mailto:portizca@risd.edu">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M4 7l8 6 8-6"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const viewerTrack = document.getElementById("viewerTrack");
+  const viewerPlaceholder = document.getElementById("viewerPlaceholder");
+  const thumbs = document.querySelectorAll(".thumb");
+  const dotsWrap = document.getElementById("dots");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  const heroes = [...thumbs].map(t => t.dataset.hero);
+  let currentIndex = Math.max(
+    0,
+    heroes.findIndex((_, i) => thumbs[i].classList.contains("is-selected"))
+  );
+
+  function showPlaceholder(){ viewerPlaceholder.style.display = "flex"; }
+  function hidePlaceholder(){ viewerPlaceholder.style.display = "none"; }
+
+  function buildSlides(){
+    viewerTrack.innerHTML = "";
+    heroes.forEach((src, i) => {
+      const slide = document.createElement("div");
+      slide.className = "viewer-slide";
+
+      const img = document.createElement("img");
+      img.alt = "";
+
+      // Only hide/show placeholder based on the current slide load state
+      img.onload = () => { if (i === currentIndex) hidePlaceholder(); };
+      img.onerror = () => { if (i === currentIndex) showPlaceholder(); };
+
+      img.src = src;
+      slide.appendChild(img);
+      viewerTrack.appendChild(slide);
+    });
+  }
+
+  function renderDots(){
+    dotsWrap.innerHTML = "";
+    heroes.forEach((_, i) => {
+      const d = document.createElement("button");
+      d.className = "dot" + (i === currentIndex ? " is-active" : "");
+      d.onclick = () => select(i);
+      dotsWrap.appendChild(d);
+    });
+  }
+
+  function clampIndex(i){
+    const n = heroes.length;
+    return (i % n + n) % n;
+  }
+
+  function updateUI(){
+    // Slide band
+    viewerTrack.style.transform = `translateX(${-currentIndex * 100}%)`;
+
+    // Selected thumb
+    thumbs.forEach(t => t.classList.remove("is-selected"));
+    thumbs[currentIndex]?.classList.add("is-selected");
+
+    // Dots
+    [...dotsWrap.children].forEach(d => d.classList.remove("is-active"));
+    dotsWrap.children[currentIndex]?.classList.add("is-active");
+  }
+
+  function select(i){
+    currentIndex = clampIndex(i);
+    updateUI();
+  }
+
+  thumbs.forEach((t, i) => t.onclick = () => select(i));
+  prevBtn.onclick = () => select(currentIndex - 1);
+  nextBtn.onclick = () => select(currentIndex + 1);
+
+  // Init
+  buildSlides();
+  renderDots();
+  select(currentIndex);
+
+  // ===== Align right edge of gallery to the right edge of the nav ("PRESS") =====
+  const navEl = document.querySelector(".nav");
+  const galleryEl = document.querySelector(".gallery");
+
+  function alignGalleryToNavRight(){
+    if(!navEl || !galleryEl) return;
+
+    galleryEl.style.transform = "translateX(0px)";
+
+    const navRight = navEl.getBoundingClientRect().right;
+    const galleryRight = galleryEl.getBoundingClientRect().right;
+
+    const delta = navRight - galleryRight;
+    galleryEl.style.transform = `translateX(${Math.round(delta)}px)`;
+  }
+
+  window.addEventListener("load", alignGalleryToNavRight);
+  window.addEventListener("resize", alignGalleryToNavRight);
+  setTimeout(alignGalleryToNavRight, 50);
+  setTimeout(alignGalleryToNavRight, 250);
+</script>
+
+</body>
+</html>
