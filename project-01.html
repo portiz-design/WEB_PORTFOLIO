@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pedro Ortiz Cazal — The Unknown, Gallery</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Kumbh+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111;
+      --muted:#090909;
+
+      --wide-max: 1600px;
+      --wide-pad: 64px;
+
+      --font-title: "Space Grotesk", system-ui, sans-serif;
+      --font-ui: "Kumbh Sans", system-ui, sans-serif;
+
+      --header-pad-top: 56px;
+      --header-pad-bottom: 28px;
+      --header-title-gap: 4px;
+      --header-nav-push: 120px;
+
+      --content-top-gap: 66px;
+      --content-left-inset: 22px; /* matches your “hero frame” inset */
+      --grid-gap: 26px;
+
+      --icon-size: 33px;
+      --icon-stroke: 2.4;
+      --home-label-gap: 6px;
+
+      /* Project page sizing */
+      --hero-w: 430px;          /* adjust if you want hero bigger/smaller */
+      --hero-aspect: 4 / 5;     /* tall-ish hero like your reference */
+      --max-text-col: 860px;
+      --meta-font: 12px;
+      --body-font: 12.5px;
+      --body-leading: 1.45;
+
+      /* ===== Animation helpers ===== */
+      --reveal-bg: var(--bg);
+      --col-width: 30px;
+    }
+
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: var(--font-ui);
+
+      /* sticky footer */
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+
+      cursor: url("cursor-black.svg") 2 2, auto;
+    }
+
+    /* Keep your custom cursor everywhere */
+    *{ cursor: url("cursor-black.svg") 2 2, auto !important; }
+
+    main{ flex:1; }
+
+    .container-wide{
+      max-width: var(--wide-max);
+      margin: 0 auto;
+      padding: 0 var(--wide-pad);
+    }
+
+    /* ================= HEADER ================= */
+    .site-header{ padding: var(--header-pad-top) 0 var(--header-pad-bottom); }
+
+    .header-inner{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand-title{
+      font-family: var(--font-title);
+      font-size: 40px;
+      font-weight: 600;
+      letter-spacing: -0.1em;
+      line-height: 0.72;
+      text-transform: uppercase;
+      margin:0;
+    }
+
+    .brand-subtitle{
+      margin-top: var(--header-title-gap);
+      font-size:16px;
+      font-weight:400;
+      letter-spacing: .02em;
+      line-height: 1.1;
+      margin-bottom:0;
+      color:#222;
+    }
+
+    .nav{
+      display:flex;
+      gap:22px;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+      margin-left: var(--header-nav-push);
+    }
+
+    .nav-link{
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:500;
+      color:var(--muted);
+      text-decoration:none;
+    }
+
+    .nav-link:hover{ color:var(--text); }
+
+    .nav-link.is-active{
+      color:var(--text);
+      font-weight:600;
+    }
+
+    /* ================= PROJECT LAYOUT ================= */
+    .project{
+      margin-top: var(--content-top-gap);
+      padding-left: var(--content-left-inset);
+    }
+
+    .project-head{
+      max-width: calc(var(--max-text-col) + var(--hero-w) + var(--grid-gap));
+    }
+
+    .project-title{
+      font-family: var(--font-title);
+      font-size: 34px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin:0 0 6px 0;
+      line-height: 1.05;
+    }
+
+    .project-subtitle{
+      font-size: 18px;
+      font-weight: 500;
+      margin:0 0 26px 0;
+      color:#222;
+      line-height: 1.15;
+    }
+
+    /* Top row: meta left, hero right */
+    .project-top{
+      display:grid;
+      grid-template-columns: minmax(0, var(--max-text-col)) var(--hero-w);
+      gap: var(--grid-gap);
+      align-items:start;
+    }
+
+    .meta{
+      font-size: var(--meta-font);
+      line-height: 1.25;
+      color:#111;
+      white-space: normal;
+    }
+
+    .meta b{ font-weight: 600; }
+
+    /* Hero */
+    .hero{ width: 100%; }
+
+    .hero-frame{
+      width:100%;
+      aspect-ratio: var(--hero-aspect);
+      background:#eaeaea;
+      overflow:hidden;
+      position:relative;
+      border:0;
+    }
+
+    .hero-frame img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      position: relative; /* needed for top animation */
+    }
+
+    /* “placeholder” text if image missing */
+    .hero-fallback{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      letter-spacing:.18em;
+      color:#9a9a9a;
+      text-transform:uppercase;
+      pointer-events:none;
+    }
+
+    /* Body text: 2 columns like reference */
+    .project-body{
+      margin-top: 26px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--grid-gap);
+      max-width: calc(var(--max-text-col) + var(--hero-w) + var(--grid-gap));
+    }
+
+    .block h3{
+      margin: 0 0 8px 0;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    .block p{
+      margin: 0 0 12px 0;
+      font-size: var(--body-font);
+      line-height: var(--body-leading);
+      color:#111;
+    }
+
+    .block p:last-child{ margin-bottom:0; }
+
+    /* ================= BIG SCROLL TEST IMAGE ================= */
+    .project-scroll-test{
+      margin-top: 60px;
+      max-width: calc(var(--max-text-col) + var(--hero-w) + var(--grid-gap));
+    }
+
+    .scroll-image-frame{
+      width:100%;
+      aspect-ratio: 16 / 9;
+      background:#eaeaea;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .scroll-image-frame img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      position: relative; /* needed for top animation */
+    }
+
+    .scroll-fallback{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      letter-spacing:.18em;
+      color:#9a9a9a;
+      text-transform:uppercase;
+      pointer-events:none;
+    }
+
+    /* ================= FOOTER ================= */
+    .site-footer{ padding:14px 0 26px; }
+
+    .footer-inner{
+      display:flex;
+      justify-content:flex-end;
+    }
+
+    .footer-icons{
+      display:flex;
+      gap:16px;
+      align-items:flex-end;
+    }
+
+    /* HOME label under square */
+    .icon-btn{
+      width:33px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      color:var(--muted);
+      text-decoration:none;
+    }
+
+    .icon-btn:hover{ color:var(--text); }
+
+    .home-square{
+      width:33px;
+      height:33px;
+      background:#111;
+    }
+
+    .home-label{
+      margin-top: var(--home-label-gap);
+      font-size:9px;
+      letter-spacing:.16em;
+      text-align:center;
+      line-height: 1;
+      color: var(--muted);
+    }
+
+    .icon{
+      width: var(--icon-size);
+      height: var(--icon-size);
+      display:block;
+    }
+
+    .icon *{
+      stroke-width: var(--icon-stroke);
+      stroke: currentColor;
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    /* ================= REVEAL COLUMNS (GSAP effect) ================= */
+    .photo-reveal{
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-reveal .col{
+      pointer-events:none;
+      position:absolute;
+      top:0;
+      bottom:0;
+      z-index: 3;
+    }
+    .photo-reveal .col__bg{
+      pointer-events:none;
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background: var(--reveal-bg);
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1100px){
+      :root{ --wide-pad: 28px; --hero-w: 360px; }
+    }
+
+    @media (max-width: 900px){
+      .project-top{ grid-template-columns: 1fr; }
+      .hero{ max-width: 520px; }
+      .project-body{ grid-template-columns: 1fr; }
+      .nav{ margin-left: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container-wide header-inner">
+    <div>
+      <div class="brand-title">PEDRO ORTIZ CAZAL</div>
+      <div class="brand-subtitle">Architecture Portfolio</div>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link" href="index.html">HOME</a>
+      <a class="nav-link" href="about.html">ABOUT</a>
+      <a class="nav-link is-active" href="projects.html">PROJECTS</a>
+      <a class="nav-link" href="resume.html">RESUME</a>
+      <a class="nav-link" href="press.html">PRESS</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container-wide">
+  <section class="project">
+
+    <div class="project-head">
+      <!-- added hook classes only -->
+      <h1 class="project-title js-hero-title">THE UNKNOWN, GALLERY</h1>
+      <p class="project-subtitle js-hero-subtitle">Exhibition Complex for Indigenous &amp; Underrepresented Artists</p>
+    </div>
+
+    <div class="project-top">
+      <!-- LEFT: Meta (added hook class only) -->
+      <div class="meta js-meta">
+        <div><b>Architect:</b> Pedro Ortiz</div>
+        <div><b>Project Category:</b> Academic, “Architectural Studio VIII” course</div>
+        <div><b>Design Completion Period &amp; Year:</b> 136 Hrs., 2017</div>
+        <div><b>Institution:</b> Universidad Americana</div>
+        <div><b>Media:</b> AutoCAD, Vray, Sketchup</div>
+        <div><b>Floor Area:</b> 1820 m²</div>
+        <div><b>Site Category:</b> Private Urban Park</div>
+        <div><b>Location:</b> Asunción</div>
+        <div><b>Structure Composition:</b> Steel Reinforced Concrete, Steel Beams</div>
+        <div><b>Façade:</b> Concrete, Glass, Black Aluminum Frames</div>
+        <div><b>Materials:</b> Marble and Granite Exterior Cladding, White Marble Floors, Plastered Brick Walls, Drywall Panels</div>
+      </div>
+
+      <!-- RIGHT: Hero (added photo-reveal + hook class only) -->
+      <div class="hero">
+        <div class="hero-frame photo-reveal js-hero-photo">
+          <img
+          src="img/projects/project 1/hero-03.jpg"
+            alt="The Unknown, Gallery — hero"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="hero-fallback" style="display:none;">HERO IMAGE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-column text blocks (added hook only) -->
+    <div class="project-body js-body">
+      <div class="block">
+        <h3>Background</h3>
+        <p>
+          In South America, the arts and exhibition spaces have been historically dominated by white European men and their descendants.
+          Even in present times, art galleries are off-limits spaces for underrepresented artists such as indigenous people, women,
+          and people from the LGBTQ+ community, who are often discriminated against for their race, sexuality, and/or economic status.
+        </p>
+
+        <h3>The Idea</h3>
+        <p>
+          The proposal envisions the design and creation of an open, safe, and inclusive space where artists from diverse backgrounds
+          and socioeconomic statuses can showcase their creativity. The Unknown Gallery’s mission is to amplify the voices of artists
+          often silenced and relegated to exclusion and anonymity.
+        </p>
+
+        <h3>Design Concept</h3>
+        <p>
+          The design follows a sober and minimalist style where the architecture aims at highlighting the artworks on display.
+          Bright spaces composed of straight lines and simple geometric shapes are proposed.
+        </p>
+      </div>
+
+      <div class="block">
+        <p>
+          Neutral colors and noble natural materials were selected to achieve architectural plasticity that conveys order, durability, and elegance.
+          The spatial organization is quite simple. The exhibition rooms follow a horizontal linear organization, where freedom is absolute.
+        </p>
+
+        <p>
+          The glass openings not only allow visual connection but also provide protection, as it creates a space where artists feel free but safe.
+          White color takes over the interiors with the goal of symbolizing a blank canvas at the disposal of the artists.
+        </p>
+
+        <h3>Program &amp; Operation</h3>
+        <p>
+          <b>Art Gallery:</b> the exhibition gallery consists of five interconnected sequential rooms, three of which are exclusive for graphic arts
+          and two which are for mixed use, to display sculptures and temporary installations.
+        </p>
+        <p>
+          <b>Theater:</b> a space for theatrical expression, singing, and dancing is located in the basement of the building to provide good acoustics,
+          lighting, and extra privacy for the performers.
+        </p>
+      </div>
+    </div>
+
+    <!-- ✅ BIG IMAGE UNDER THE TEXT (SCROLL TEST) -->
+    <section class="project-scroll-test js-scroll-test">
+      <div class="scroll-image-frame photo-reveal js-scroll-photo">
+        <img
+         src="img/projects/project 1/hero-04.jpg"
+          alt="The Unknown, Gallery — large image"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+      </div>
+    </section>
+
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container-wide footer-inner">
+    <div class="footer-icons">
+      <a class="icon-btn" href="index.html">
+        <span class="home-square"></span>
+        <span class="home-label">HOME</span>
+      </a>
+
+      <a class="icon-btn" href="https://instagram.com/peortizc" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24">
+          <rect x="5" y="5" width="14" height="14" rx="3"/>
+          <circle cx="12" cy="12" r="3.5"/>
+        </svg>
+      </a>
+
+      <a class="icon-btn" href="mailto:portizca@risd.edu">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M4 7h16v10H4z"/>
+          <path d="M4 7l8 6 8-6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== GSAP (free) ===== -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<!-- If you have SplitText locally, include it like this (example):
+<script src="js/SplitText.min.js"></script>
+-->
+
+<script>
+  // ====== Config ======
+  const columnWidth = 30;
+
+  // ====== Helpers ======
+  const createColumns = (el) => {
+    if (!el) return;
+
+    // don’t double-create columns if user refreshes/hot reload etc
+    if (el.querySelector(".col")) return;
+
+    const rect = el.getBoundingClientRect();
+    const columns = Math.ceil(rect.width / columnWidth);
+
+    // Ensure el is positioning context
+    el.style.position = el.style.position || "relative";
+
+    for (let i = 0; i < columns; i++) {
+      const col = document.createElement("div");
+      const colBg = document.createElement("div");
+      col.classList.add("col");
+      colBg.classList.add("col__bg");
+      col.appendChild(colBg);
+      el.appendChild(col);
+
+      // place columns left->right
+      gsap.set(col, {
+        width: columnWidth,
+        left: i * columnWidth,
+      });
+    }
+  };
+
+  const revealPhoto = (frameEl, imgEl, opts = {}) => {
+    const cols = frameEl.querySelectorAll(".col__bg");
+    const tl = gsap.timeline({ paused: true });
+
+    // default: cover -> uncover (width from 100% to 0)
+    tl.to(cols, {
+      width: 0,
+      duration: opts.revealDuration ?? 1,
+      ease: opts.easeReveal ?? "power2.out",
+      stagger: opts.stagger ?? 0,
+    }, 0);
+
+    // subtle parallax-y move like your reference
+    if (imgEl) {
+      tl.to(imgEl, {
+        top: opts.imgTop ?? "-10%",
+        duration: opts.imgDuration ?? 1.25,
+        ease: opts.easeMove ?? "power2.out",
+      }, opts.imgDelay ?? 0.1);
+    }
+
+    return tl;
+  };
+
+  const fadeUp = (targets, opts = {}) => {
+    return gsap.fromTo(
+      targets,
+      { autoAlpha: 0, y: opts.fromY ?? 28 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: opts.duration ?? 0.85,
+        ease: opts.ease ?? "power2.out",
+        stagger: opts.stagger ?? 0.06
+      }
+    );
+  };
+
+  const splitLinesIfAvailable = (el) => {
+    // SplitText is a Club plugin — only use if user has it
+    if (!el) return [el];
+    if (typeof SplitText === "undefined") return [el];
+
+    try {
+      return new SplitText(el, { type: "lines" }).lines;
+    } catch (e) {
+      return [el];
+    }
+  };
+
+  // ====== Init ======
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!window.gsap) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Elements
+    const heroPhotoFrame = document.querySelector(".js-hero-photo");
+    const heroPhotoImg = heroPhotoFrame?.querySelector("img");
+
+    const scrollPhotoFrame = document.querySelector(".js-scroll-photo");
+    const scrollPhotoImg = scrollPhotoFrame?.querySelector("img");
+
+    const heroTitle = document.querySelector(".js-hero-title");
+    const heroSubtitle = document.querySelector(".js-hero-subtitle");
+    const meta = document.querySelector(".js-meta");
+
+    const bodyBlocks = document.querySelectorAll(".js-body .block");
+    const bodyText = document.querySelectorAll(".js-body p, .js-body h3");
+
+    // 1) HERO LOAD ANIMATION (image reveal + title/subtitle)
+    if (heroPhotoFrame) {
+      createColumns(heroPhotoFrame);
+
+      const heroTl = revealPhoto(heroPhotoFrame, heroPhotoImg, {
+        imgTop: "-8%",
+        revealDuration: 1,
+        imgDuration: 1.35,
+        stagger: 0
+      });
+
+      // Title lines if SplitText exists, else whole element
+      const titleLines = splitLinesIfAvailable(heroTitle);
+      const subtitleLines = splitLinesIfAvailable(heroSubtitle);
+
+      gsap.set([titleLines, subtitleLines], { autoAlpha: 0, y: 36 });
+
+      heroTl
+        .to(subtitleLines, { autoAlpha: 1, y: 0, duration: 0.8, ease: "power2.out" }, 0.15)
+        .to(titleLines, { autoAlpha: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.06 }, 0.2);
+
+      // Play on window load (images ready)
+      window.addEventListener("load", () => heroTl.play());
+    }
+
+    // 2) META fade-up on scroll
+    if (meta) {
+      const metaItems = meta.querySelectorAll("div");
+      gsap.set(metaItems, { autoAlpha: 0, y: 22 });
+
+      ScrollTrigger.create({
+        trigger: meta,
+        start: "top 85%",
+        onEnter: () => fadeUp(metaItems, { fromY: 22, duration: 0.75, stagger: 0.04 }),
+        once: true
+      });
+    }
+
+    // 3) BODY blocks fade-up on scroll (keeps your layout; just animates)
+    if (bodyText.length) {
+      gsap.set(bodyText, { autoAlpha: 0, y: 22 });
+
+      ScrollTrigger.create({
+        trigger: ".js-body",
+        start: "top 85%",
+        onEnter: () => fadeUp(bodyText, { fromY: 22, duration: 0.75, stagger: 0.03 }),
+        once: true
+      });
+    }
+
+    // 4) BIG IMAGE reveal on scroll
+    if (scrollPhotoFrame) {
+      createColumns(scrollPhotoFrame);
+
+      const scrollTl = revealPhoto(scrollPhotoFrame, scrollPhotoImg, {
+        imgTop: "-12%",
+        revealDuration: 1,
+        imgDuration: 1.35,
+      });
+
+      ScrollTrigger.create({
+        trigger: ".js-scroll-test",
+        start: "top 85%",
+        onEnter: () => scrollTl.play(),
+        once: true
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
