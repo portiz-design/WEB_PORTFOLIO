@@ -22,26 +22,29 @@
       --font-title: "Space Grotesk", system-ui, sans-serif;
       --font-ui: "Kumbh Sans", system-ui, sans-serif;
 
-      --header-pad-top: 56px;
-      --header-pad-bottom: 28px;
+      /* Header */
+      --header-pad-top: 44px;     /* smaller */
+      --header-pad-bottom: 22px;  /* smaller */
       --header-title-gap: 4px;
       --header-nav-push: 120px;
 
-      --content-top-gap: 66px;
-      --content-left-inset: 22px; /* matches your “hero frame” inset */
-      --grid-gap: 26px;
+      /* Layout */
+      --content-top-gap: 56px;
+      --grid-gap: 44px;
 
+      /* Left editorial column */
+      --text-col: 520px;
+      --meta-font: 12px;
+      --body-font: 13.25px;
+      --body-leading: 1.68;
+
+      /* Right rail images */
+      --hero-aspect: 4 / 5;
+
+      /* Footer icons (UNCHANGED) */
       --icon-size: 33px;
       --icon-stroke: 2.4;
       --home-label-gap: 6px;
-
-      /* Project page sizing */
-      --hero-w: 430px;          /* adjust if you want hero bigger/smaller */
-      --hero-aspect: 4 / 5;     /* tall-ish hero like your reference */
-      --max-text-col: 860px;
-      --meta-font: 12px;
-      --body-font: 12.5px;
-      --body-leading: 1.45;
 
       /* ===== Animation helpers ===== */
       --reveal-bg: var(--bg);
@@ -57,7 +60,6 @@
       color:var(--text);
       font-family: var(--font-ui);
 
-      /* sticky footer */
       min-height:100vh;
       display:flex;
       flex-direction:column;
@@ -86,24 +88,28 @@
       gap:24px;
     }
 
+    /* smaller like Minor Lab */
     .brand-title{
       font-family: var(--font-title);
-      font-size: 40px;
+      font-size: 24px;
       font-weight: 600;
-      letter-spacing: -0.1em;
-      line-height: 0.72;
+      letter-spacing: -0.08em;
+      line-height: 0.9;
       text-transform: uppercase;
       margin:0;
+      color:#111; /* black */
     }
 
     .brand-subtitle{
       margin-top: var(--header-title-gap);
-      font-size:16px;
-      font-weight:400;
-      letter-spacing: .02em;
-      line-height: 1.1;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      line-height: 1.2;
       margin-bottom:0;
-      color:#222;
+      color:#111; /* black */
+      text-transform: uppercase;
+      opacity: .85; /* subtle softening, still black */
     }
 
     .nav{
@@ -131,14 +137,23 @@
       font-weight:600;
     }
 
-    /* ================= PROJECT LAYOUT ================= */
+    /* ================= PROJECT LAYOUT (Minorlab-like) ================= */
     .project{
       margin-top: var(--content-top-gap);
-      padding-left: var(--content-left-inset);
+      padding-left: 0; /* IMPORTANT: aligns with header left edge */
     }
 
-    .project-head{
-      max-width: calc(var(--max-text-col) + var(--hero-w) + var(--grid-gap));
+    /* Two-column: left text rail, right image rail */
+    .project-grid{
+      display:grid;
+      grid-template-columns: var(--text-col) minmax(0, 1fr);
+      gap: var(--grid-gap);
+      align-items:start;
+    }
+
+    /* LEFT RAIL */
+    .project-left{
+      max-width: var(--text-col);
     }
 
     .project-title{
@@ -147,42 +162,64 @@
       font-weight: 600;
       letter-spacing: -0.02em;
       text-transform: uppercase;
-      margin:0 0 6px 0;
+      margin:0 0 8px 0;
       line-height: 1.05;
+      color:#111; /* keep black */
     }
 
     .project-subtitle{
-      font-size: 18px;
+      font-size: 14.5px;
       font-weight: 500;
-      margin:0 0 26px 0;
+      margin:0 0 18px 0;
       color:#222;
-      line-height: 1.15;
-    }
-
-    /* Top row: meta left, hero right */
-    .project-top{
-      display:grid;
-      grid-template-columns: minmax(0, var(--max-text-col)) var(--hero-w);
-      gap: var(--grid-gap);
-      align-items:start;
+      line-height: 1.35;
+      max-width: 56ch;
     }
 
     .meta{
       font-size: var(--meta-font);
-      line-height: 1.25;
+      line-height: 1.45;
       color:#111;
       white-space: normal;
+      margin-top: 0;
+      margin-bottom: 22px;
     }
 
     .meta b{ font-weight: 600; }
 
-    /* Hero */
-    .hero{ width: 100%; }
+    .project-body{
+      display:block; /* editorial single column like Minorlab */
+    }
+
+    .block h3{
+      margin: 22px 0 10px 0;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color:#111;
+    }
+
+    .block h3:first-child{ margin-top:0; }
+
+    .block p{
+      margin: 0 0 14px 0;
+      font-size: var(--body-font);
+      line-height: var(--body-leading);
+      color:#111;
+    }
+
+    .block p:last-child{ margin-bottom:0; }
+
+    /* RIGHT RAIL */
+    .project-right{
+      width:100%;
+    }
 
     .hero-frame{
       width:100%;
       aspect-ratio: var(--hero-aspect);
-      background:#eaeaea;
+      background: transparent; /* remove gray box */
       overflow:hidden;
       position:relative;
       border:0;
@@ -196,7 +233,6 @@
       position: relative; /* needed for top animation */
     }
 
-    /* “placeholder” text if image missing */
     .hero-fallback{
       position:absolute;
       inset:0;
@@ -210,41 +246,16 @@
       pointer-events:none;
     }
 
-    /* Body text: 2 columns like reference */
-    .project-body{
-      margin-top: 26px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--grid-gap);
-      max-width: calc(var(--max-text-col) + var(--hero-w) + var(--grid-gap));
-    }
-
-    .block h3{
-      margin: 0 0 8px 0;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: .02em;
-    }
-
-    .block p{
-      margin: 0 0 12px 0;
-      font-size: var(--body-font);
-      line-height: var(--body-leading);
-      color:#111;
-    }
-
-    .block p:last-child{ margin-bottom:0; }
-
-    /* ================= BIG SCROLL TEST IMAGE ================= */
+    /* Right rail big images stacked */
     .project-scroll-test{
-      margin-top: 60px;
-      max-width: calc(var(--max-text-col) + var(--hero-w) + var(--grid-gap));
+      margin-top: 26px;
+      width: 100%;
     }
 
     .scroll-image-frame{
       width:100%;
       aspect-ratio: 16 / 9;
-      background:#eaeaea;
+      background: transparent; /* remove gray box */
       overflow:hidden;
       position:relative;
     }
@@ -270,7 +281,7 @@
       pointer-events:none;
     }
 
-    /* ================= FOOTER ================= */
+    /* ================= FOOTER (icons aligned) ================= */
     .site-footer{ padding:14px 0 26px; }
 
     .footer-inner{
@@ -281,12 +292,11 @@
     .footer-icons{
       display:flex;
       gap:16px;
-      align-items:flex-end;
+      align-items:flex-start; /* key: align all icon boxes to same top */
     }
 
-    /* HOME label under square */
     .icon-btn{
-      width:33px;
+      width: var(--icon-size);
       display:flex;
       flex-direction:column;
       align-items:center;
@@ -296,10 +306,21 @@
 
     .icon-btn:hover{ color:var(--text); }
 
+    /* NEW: fixed icon box so HOME square + svg icons share identical footprint */
+    .icon-box{
+      width: var(--icon-size);
+      height: var(--icon-size);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex: 0 0 auto;
+    }
+
     .home-square{
-      width:33px;
-      height:33px;
+      width:100%;
+      height:100%;
       background:#111;
+      display:block;
     }
 
     .home-label{
@@ -312,8 +333,8 @@
     }
 
     .icon{
-      width: var(--icon-size);
-      height: var(--icon-size);
+      width: 100%;
+      height: 100%;
       display:block;
     }
 
@@ -349,14 +370,13 @@
 
     /* ================= RESPONSIVE ================= */
     @media (max-width: 1100px){
-      :root{ --wide-pad: 28px; --hero-w: 360px; }
+      :root{ --wide-pad: 28px; --grid-gap: 28px; --text-col: 460px; }
+      .nav{ margin-left: 0; }
     }
 
     @media (max-width: 900px){
-      .project-top{ grid-template-columns: 1fr; }
-      .hero{ max-width: 520px; }
-      .project-body{ grid-template-columns: 1fr; }
-      .nav{ margin-left: 0; }
+      .project-grid{ grid-template-columns: 1fr; }
+      .project-left{ max-width: 680px; }
     }
   </style>
 </head>
@@ -383,99 +403,131 @@
 <main class="container-wide">
   <section class="project">
 
-    <div class="project-head">
-      <!-- added hook classes only -->
-      <h1 class="project-title js-hero-title">THE UNKNOWN, GALLERY</h1>
-      <p class="project-subtitle js-hero-subtitle">Exhibition Complex for Indigenous &amp; Underrepresented Artists</p>
-    </div>
+    <div class="project-grid">
 
-    <div class="project-top">
-      <!-- LEFT: Meta (added hook class only) -->
-      <div class="meta js-meta">
-        <div><b>Architect:</b> Pedro Ortiz</div>
-        <div><b>Project Category:</b> Academic, “Architectural Studio VIII” course</div>
-        <div><b>Design Completion Period &amp; Year:</b> 136 Hrs., 2017</div>
-        <div><b>Institution:</b> Universidad Americana</div>
-        <div><b>Media:</b> AutoCAD, Vray, Sketchup</div>
-        <div><b>Floor Area:</b> 1820 m²</div>
-        <div><b>Site Category:</b> Private Urban Park</div>
-        <div><b>Location:</b> Asunción</div>
-        <div><b>Structure Composition:</b> Steel Reinforced Concrete, Steel Beams</div>
-        <div><b>Façade:</b> Concrete, Glass, Black Aluminum Frames</div>
-        <div><b>Materials:</b> Marble and Granite Exterior Cladding, White Marble Floors, Plastered Brick Walls, Drywall Panels</div>
+      <!-- LEFT RAIL (text aligned to header) -->
+      <div class="project-left">
+        <h1 class="project-title js-hero-title">THE UNKNOWN, GALLERY</h1>
+        <p class="project-subtitle js-hero-subtitle">Exhibition Complex for Indigenous &amp; Underrepresented Artists</p>
+
+        <div class="meta js-meta">
+          <div><b>Architect:</b> Pedro Ortiz</div>
+          <div><b>Project Category:</b> Academic, “Architectural Studio VIII” course</div>
+          <div><b>Design Completion Period &amp; Year:</b> 136 Hrs., 2017</div>
+          <div><b>Institution:</b> Universidad Americana</div>
+          <div><b>Media:</b> AutoCAD, Vray, Sketchup</div>
+          <div><b>Floor Area:</b> 1820 m²</div>
+          <div><b>Site Category:</b> Private Urban Park</div>
+          <div><b>Location:</b> Asunción</div>
+          <div><b>Structure Composition:</b> Steel Reinforced Concrete, Steel Beams</div>
+          <div><b>Façade:</b> Concrete, Glass, Black Aluminum Frames</div>
+          <div><b>Materials:</b> Marble and Granite Exterior Cladding, White Marble Floors, Plastered Brick Walls, Drywall Panels</div>
+        </div>
+
+        <div class="project-body js-body">
+          <div class="block">
+            <h3>Background</h3>
+            <p>
+              In South America, the arts and exhibition spaces have been historically dominated by white European men and their descendants.
+              Even in present times, art galleries are off-limits spaces for underrepresented artists such as indigenous people, women,
+              and people from the LGBTQ+ community, who are often discriminated against for their race, sexuality, and/or economic status.
+            </p>
+
+            <h3>The Idea</h3>
+            <p>
+              The proposal envisions the design and creation of an open, safe, and inclusive space where artists from diverse backgrounds
+              and socioeconomic statuses can showcase their creativity. The Unknown Gallery’s mission is to amplify the voices of artists
+              often silenced and relegated to exclusion and anonymity.
+            </p>
+
+            <h3>Design Concept</h3>
+            <p>
+              The design follows a sober and minimalist style where the architecture aims at highlighting the artworks on display.
+              Bright spaces composed of straight lines and simple geometric shapes are proposed.
+            </p>
+          </div>
+
+          <div class="block">
+            <p>
+              Neutral colors and noble natural materials were selected to achieve architectural plasticity that conveys order, durability, and elegance.
+              The spatial organization is quite simple. The exhibition rooms follow a horizontal linear organization, where freedom is absolute.
+            </p>
+
+            <p>
+              The glass openings not only allow visual connection but also provide protection, as it creates a space where artists feel free but safe.
+              White color takes over the interiors with the goal of symbolizing a blank canvas at the disposal of the artists.
+            </p>
+
+            <h3>Program &amp; Operation</h3>
+            <p>
+              <b>Art Gallery:</b> the exhibition gallery consists of five interconnected sequential rooms, three of which are exclusive for graphic arts
+              and two which are for mixed use, to display sculptures and temporary installations.
+            </p>
+            <p>
+              <b>Theater:</b> a space for theatrical expression, singing, and dancing is located in the basement of the building to provide good acoustics,
+              lighting, and extra privacy for the performers.
+            </p>
+          </div>
+        </div>
       </div>
 
-      <!-- RIGHT: Hero (added photo-reveal + hook class only) -->
-      <div class="hero">
+      <!-- RIGHT RAIL (images stacked like Minorlab) -->
+      <div class="project-right">
         <div class="hero-frame photo-reveal js-hero-photo">
           <img
-          src="img/projects/project 1/hero-03.jpg"
+            src="img/projects/project 1/hero-03.jpg"
             alt="The Unknown, Gallery — hero"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
           />
           <div class="hero-fallback" style="display:none;">HERO IMAGE</div>
         </div>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 1/hero-04.jpg"
+              alt="The Unknown, Gallery — large image"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 1/hero-05.jpg"
+              alt="The Unknown, Gallery — large image 2"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 1/hero-06.jpg"
+              alt="The Unknown, Gallery — large image 3"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 1/hero-07.jpg"
+              alt="The Unknown, Gallery — large image 4"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
       </div>
+
     </div>
-
-    <!-- Two-column text blocks (added hook only) -->
-    <div class="project-body js-body">
-      <div class="block">
-        <h3>Background</h3>
-        <p>
-          In South America, the arts and exhibition spaces have been historically dominated by white European men and their descendants.
-          Even in present times, art galleries are off-limits spaces for underrepresented artists such as indigenous people, women,
-          and people from the LGBTQ+ community, who are often discriminated against for their race, sexuality, and/or economic status.
-        </p>
-
-        <h3>The Idea</h3>
-        <p>
-          The proposal envisions the design and creation of an open, safe, and inclusive space where artists from diverse backgrounds
-          and socioeconomic statuses can showcase their creativity. The Unknown Gallery’s mission is to amplify the voices of artists
-          often silenced and relegated to exclusion and anonymity.
-        </p>
-
-        <h3>Design Concept</h3>
-        <p>
-          The design follows a sober and minimalist style where the architecture aims at highlighting the artworks on display.
-          Bright spaces composed of straight lines and simple geometric shapes are proposed.
-        </p>
-      </div>
-
-      <div class="block">
-        <p>
-          Neutral colors and noble natural materials were selected to achieve architectural plasticity that conveys order, durability, and elegance.
-          The spatial organization is quite simple. The exhibition rooms follow a horizontal linear organization, where freedom is absolute.
-        </p>
-
-        <p>
-          The glass openings not only allow visual connection but also provide protection, as it creates a space where artists feel free but safe.
-          White color takes over the interiors with the goal of symbolizing a blank canvas at the disposal of the artists.
-        </p>
-
-        <h3>Program &amp; Operation</h3>
-        <p>
-          <b>Art Gallery:</b> the exhibition gallery consists of five interconnected sequential rooms, three of which are exclusive for graphic arts
-          and two which are for mixed use, to display sculptures and temporary installations.
-        </p>
-        <p>
-          <b>Theater:</b> a space for theatrical expression, singing, and dancing is located in the basement of the building to provide good acoustics,
-          lighting, and extra privacy for the performers.
-        </p>
-      </div>
-    </div>
-
-    <!-- ✅ BIG IMAGE UNDER THE TEXT (SCROLL TEST) -->
-    <section class="project-scroll-test js-scroll-test">
-      <div class="scroll-image-frame photo-reveal js-scroll-photo">
-        <img
-         src="img/projects/project 1/hero-04.jpg"
-          alt="The Unknown, Gallery — large image"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-        />
-        <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
-      </div>
-    </section>
 
   </section>
 </main>
@@ -484,22 +536,26 @@
   <div class="container-wide footer-inner">
     <div class="footer-icons">
       <a class="icon-btn" href="index.html">
-        <span class="home-square"></span>
+        <span class="icon-box"><span class="home-square"></span></span>
         <span class="home-label">HOME</span>
       </a>
 
       <a class="icon-btn" href="https://instagram.com/peortizc" target="_blank" rel="noopener">
-        <svg class="icon" viewBox="0 0 24 24">
-          <rect x="5" y="5" width="14" height="14" rx="3"/>
-          <circle cx="12" cy="12" r="3.5"/>
-        </svg>
+        <span class="icon-box">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="5" y="5" width="14" height="14" rx="3"/>
+            <circle cx="12" cy="12" r="3.5"/>
+          </svg>
+        </span>
       </a>
 
       <a class="icon-btn" href="mailto:portizca@risd.edu">
-        <svg class="icon" viewBox="0 0 24 24">
-          <path d="M4 7h16v10H4z"/>
-          <path d="M4 7l8 6 8-6"/>
-        </svg>
+        <span class="icon-box">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 7h16v10H4z"/>
+            <path d="M4 7l8 6 8-6"/>
+          </svg>
+        </span>
       </a>
     </div>
   </div>
@@ -509,10 +565,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
-<!-- If you have SplitText locally, include it like this (example):
-<script src="js/SplitText.min.js"></script>
--->
-
 <script>
   // ====== Config ======
   const columnWidth = 30;
@@ -520,14 +572,11 @@
   // ====== Helpers ======
   const createColumns = (el) => {
     if (!el) return;
-
-    // don’t double-create columns if user refreshes/hot reload etc
     if (el.querySelector(".col")) return;
 
     const rect = el.getBoundingClientRect();
     const columns = Math.ceil(rect.width / columnWidth);
 
-    // Ensure el is positioning context
     el.style.position = el.style.position || "relative";
 
     for (let i = 0; i < columns; i++) {
@@ -538,11 +587,7 @@
       col.appendChild(colBg);
       el.appendChild(col);
 
-      // place columns left->right
-      gsap.set(col, {
-        width: columnWidth,
-        left: i * columnWidth,
-      });
+      gsap.set(col, { width: columnWidth, left: i * columnWidth });
     }
   };
 
@@ -550,7 +595,6 @@
     const cols = frameEl.querySelectorAll(".col__bg");
     const tl = gsap.timeline({ paused: true });
 
-    // default: cover -> uncover (width from 100% to 0)
     tl.to(cols, {
       width: 0,
       duration: opts.revealDuration ?? 1,
@@ -558,7 +602,6 @@
       stagger: opts.stagger ?? 0,
     }, 0);
 
-    // subtle parallax-y move like your reference
     if (imgEl) {
       tl.to(imgEl, {
         top: opts.imgTop ?? "-10%",
@@ -585,37 +628,26 @@
   };
 
   const splitLinesIfAvailable = (el) => {
-    // SplitText is a Club plugin — only use if user has it
     if (!el) return [el];
     if (typeof SplitText === "undefined") return [el];
-
-    try {
-      return new SplitText(el, { type: "lines" }).lines;
-    } catch (e) {
-      return [el];
-    }
+    try { return new SplitText(el, { type: "lines" }).lines; }
+    catch (e) { return [el]; }
   };
 
-  // ====== Init ======
   document.addEventListener("DOMContentLoaded", () => {
     if (!window.gsap) return;
     gsap.registerPlugin(ScrollTrigger);
 
-    // Elements
     const heroPhotoFrame = document.querySelector(".js-hero-photo");
     const heroPhotoImg = heroPhotoFrame?.querySelector("img");
-
-    const scrollPhotoFrame = document.querySelector(".js-scroll-photo");
-    const scrollPhotoImg = scrollPhotoFrame?.querySelector("img");
 
     const heroTitle = document.querySelector(".js-hero-title");
     const heroSubtitle = document.querySelector(".js-hero-subtitle");
     const meta = document.querySelector(".js-meta");
 
-    const bodyBlocks = document.querySelectorAll(".js-body .block");
     const bodyText = document.querySelectorAll(".js-body p, .js-body h3");
 
-    // 1) HERO LOAD ANIMATION (image reveal + title/subtitle)
+    // 1) HERO LOAD ANIMATION
     if (heroPhotoFrame) {
       createColumns(heroPhotoFrame);
 
@@ -626,7 +658,6 @@
         stagger: 0
       });
 
-      // Title lines if SplitText exists, else whole element
       const titleLines = splitLinesIfAvailable(heroTitle);
       const subtitleLines = splitLinesIfAvailable(heroSubtitle);
 
@@ -636,11 +667,10 @@
         .to(subtitleLines, { autoAlpha: 1, y: 0, duration: 0.8, ease: "power2.out" }, 0.15)
         .to(titleLines, { autoAlpha: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.06 }, 0.2);
 
-      // Play on window load (images ready)
       window.addEventListener("load", () => heroTl.play());
     }
 
-    // 2) META fade-up on scroll
+    // 2) META fade-up
     if (meta) {
       const metaItems = meta.querySelectorAll("div");
       gsap.set(metaItems, { autoAlpha: 0, y: 22 });
@@ -653,7 +683,7 @@
       });
     }
 
-    // 3) BODY blocks fade-up on scroll (keeps your layout; just animates)
+    // 3) BODY fade-up
     if (bodyText.length) {
       gsap.set(bodyText, { autoAlpha: 0, y: 22 });
 
@@ -665,23 +695,28 @@
       });
     }
 
-    // 4) BIG IMAGE reveal on scroll
-    if (scrollPhotoFrame) {
-      createColumns(scrollPhotoFrame);
+    // 4) ALL RIGHT-RAIL IMAGES reveal on scroll
+    const scrollTests = document.querySelectorAll(".js-scroll-test");
+    scrollTests.forEach((section) => {
+      const frame = section.querySelector(".js-scroll-photo");
+      const img = frame?.querySelector("img");
+      if (!frame) return;
 
-      const scrollTl = revealPhoto(scrollPhotoFrame, scrollPhotoImg, {
+      createColumns(frame);
+
+      const tl = revealPhoto(frame, img, {
         imgTop: "-12%",
         revealDuration: 1,
         imgDuration: 1.35,
       });
 
       ScrollTrigger.create({
-        trigger: ".js-scroll-test",
+        trigger: section,
         start: "top 85%",
-        onEnter: () => scrollTl.play(),
+        onEnter: () => tl.play(),
         once: true
       });
-    }
+    });
   });
 </script>
 

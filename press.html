@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pedro Ortiz Cazal — Architecture Portfolio</title>
+  <title>Pedro Ortiz Cazal — Press</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,23 +11,40 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Kumbh+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* --- SAME CSS AS ABOUT (unchanged) --- */
     :root{
       --bg:#ffffff;
       --text:#111;
       --muted:#090909;
+
       --wide-max: 1600px;
       --wide-pad: 64px;
+
       --thumb-gap: 26px;
+
       --font-title: "Space Grotesk", system-ui, sans-serif;
       --font-ui: "Kumbh Sans", system-ui, sans-serif;
+
+      --icon-size: 33px;
+      --icon-stroke: 2.4;
+      --home-label-gap: 4px;
+
+      /* header spacing */
       --header-pad-top: 56px;
       --header-pad-bottom: 28px;
+      --header-title-gap: 4px;
       --header-nav-push: 120px;
+
+      --page-top-gap: 66px;
+
+      /* press */
+      --press-img-ratio: 16 / 10;
+      --press-card-w: 560px;
+      --press-grid-gap: 26px;
+      --overlay-pad: 18px;
     }
 
-    *{ box-sizing:border-box }
-    html,body{ height:100% }
+    *{box-sizing:border-box}
+    html,body{height:100%}
 
     body{
       cursor: url("cursor-black.svg") 2 2, auto;
@@ -35,16 +52,16 @@
       background:var(--bg);
       color:var(--text);
       font-family: var(--font-ui);
+
       min-height: 100vh;
-      display:flex;
-      flex-direction:column;
+      display: flex;
+      flex-direction: column;
     }
 
-    *{
-      cursor: url("cursor-black.svg") 2 2, auto !important;
-    }
+    /* Keep the custom black cursor EVERYWHERE */
+    *{ cursor: url("cursor-black.svg") 2 2, auto !important; }
 
-    main{ flex:1 }
+    main{ flex: 1; }
 
     .container-wide{
       max-width: var(--wide-max);
@@ -52,33 +69,42 @@
       padding: 0 var(--wide-pad);
     }
 
+    /* ================= HEADER ================= */
     .site-header{ padding: var(--header-pad-top) 0 var(--header-pad-bottom); }
 
     .header-inner{
       display:flex;
+      align-items:flex-start;
       justify-content:space-between;
       gap:24px;
     }
 
     .brand-title{
       font-family: var(--font-title);
-      font-size:40px;
-      font-weight:600;
-      letter-spacing:-0.1em;
-      line-height:0.72;
-      text-transform:uppercase;
+      font-size: 40px;
+      font-weight: 600;
+      letter-spacing: -0.1em;
+      line-height: 0.72;
+      text-transform: uppercase;
       margin:0;
     }
 
     .brand-subtitle{
+      margin-top: var(--header-title-gap);
       font-size:16px;
-      color:#222;
-      margin:4px 0 0;
+      font-weight:400;
+      letter-spacing: .02em;
+      line-height: 1.1;
+      margin-bottom:0;
+      color: #222;
     }
 
     .nav{
       display:flex;
       gap:22px;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
       margin-left: var(--header-nav-push);
     }
 
@@ -86,18 +112,125 @@
       font-size:12px;
       letter-spacing:.14em;
       text-transform:uppercase;
-      font-weight:500;
+      font-weight:400;
       color:var(--muted);
       text-decoration:none;
     }
 
-    .nav-link:hover{ color:var(--text); }
-
     .nav-link.is-active{
-      color:var(--text);
       font-weight:600;
+      color:var(--text);
     }
 
+    /* ================= PRESS ================= */
+    .press-section{
+      margin-top: var(--page-top-gap);
+      margin-bottom: 40px;
+      padding-left: 22px;
+    }
+
+    .press-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, var(--press-card-w)));
+      gap: var(--press-grid-gap);
+      align-items:start;
+      justify-content:start;
+    }
+
+    .press-card{
+      display:block;
+      position:relative;
+      text-decoration:none;
+      color:inherit;
+      outline: 0 solid transparent;
+      outline-offset: 3px;
+    }
+
+    .press-card:focus-visible{
+      outline: 1.5px solid #111;
+    }
+
+    .press-frame{
+      position:relative;
+      width:100%;
+      aspect-ratio: var(--press-img-ratio);
+      overflow:hidden;
+      background: transparent;
+    }
+
+    .press-frame img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter: grayscale(1) saturate(.9) contrast(.98);
+      opacity:.92;
+      transition: filter .22s ease, opacity .22s ease, transform .22s ease;
+    }
+
+    .press-card:hover .press-frame img{
+      filter: grayscale(0) saturate(1) contrast(1.02);
+      opacity:1;
+      transform: scale(1.01);
+    }
+
+    /* hover overlay (only appears on hover) */
+    .press-overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-start;
+      padding: var(--overlay-pad);
+      opacity:0;
+      transform: translateY(6px);
+      transition: opacity .18s ease, transform .18s ease;
+      pointer-events:none;
+    }
+
+    .press-card:hover .press-overlay{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    .press-overlay::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0) 62%);
+      opacity:0;
+      transition: opacity .18s ease;
+    }
+
+    .press-card:hover .press-overlay::before{
+      opacity:1;
+    }
+
+    .press-overlay > div{
+      position:relative;
+      z-index:1;
+    }
+
+    .press-title{
+      font-family: var(--font-title);
+      font-weight:600;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      font-size: 16px;
+      line-height: 1.1;
+      color:#fff;
+      max-width: 26ch;
+    }
+
+    .press-meta{
+      margin-top: 6px;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.9);
+    }
+
+    /* ================= FOOTER ================= */
     .site-footer{ padding:14px 0 26px; }
 
     .footer-inner{
@@ -124,19 +257,45 @@
 
     .icon-btn:hover{ color:var(--text); }
 
+    .icon{
+      width:var(--icon-size);
+      height:var(--icon-size);
+      display:block;
+    }
+
+    .icon *{
+      stroke-width: var(--icon-stroke);
+      stroke: currentColor;
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
     .home-square{
-      width:33px;
-      height:33px;
+      width: var(--icon-size);
+      height: var(--icon-size);
       background:#111;
+      display:block;
     }
 
     .home-square-btn .home-label{
       position:absolute;
-      top:36px;
-      left:50%;
-      transform:translateX(-50%);
+      top: calc(100% + var(--home-label-gap));
+      left: 50%;
+      transform: translateX(-50%);
       font-size:9px;
       letter-spacing:.16em;
+      pointer-events:none;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1100px){
+      :root{ --wide-pad: 28px; }
+      .nav{ margin-left: 0; }
+      .press-grid{
+        grid-template-columns: 1fr;
+        max-width: 720px;
+      }
     }
   </style>
 </head>
@@ -161,10 +320,43 @@
 </header>
 
 <main class="container-wide">
-  <section style="margin-top:66px;">
-    <div style="max-width:860px; padding-left:22px;">
-      <h1>Press</h1>
-      <p>This is the press page.</p>
+  <section class="press-section">
+    <div class="press-grid">
+
+      <!-- PRESS 1 — FORMS -->
+      <a class="press-card"
+         href="https://www.formportfolios.com/moments/risd-students-design-site-specific-furniture-inspired-by-louis-kahn"
+         target="_blank"
+         rel="noopener"
+         aria-label="RISD Students Design Site-Specific Furniture Inspired by Louis Kahn">
+        <div class="press-frame">
+          <img src="img/press/forms.jpg" alt="Form Portfolios — RISD Students Design Site-Specific Furniture">
+          <div class="press-overlay" aria-hidden="true">
+            <div>
+              <div class="press-title">Form portfolios</div>
+              <div class="press-meta">furniture design</div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- PRESS 2 — 17 -->
+      <a class="press-card"
+         href="xxxxx"
+         target="_blank"
+         rel="noopener"
+         aria-label="Press article XXXXX">
+        <div class="press-frame">
+          <img src="img/press/17.jpeg" alt="Press cover — 17">
+          <div class="press-overlay" aria-hidden="true">
+            <div>
+              <div class="press-title">This is a Placeholder</div>
+              <div class="press-meta">plaster models</div>
+            </div>
+          </div>
+        </div>
+      </a>
+
     </div>
   </section>
 </main>
@@ -172,17 +364,20 @@
 <footer class="site-footer">
   <div class="container-wide footer-inner">
     <div class="footer-icons">
-      <a class="icon-btn home-square-btn" href="index.html"><span class="home-square"></span><span class="home-label">HOME</span></a>
+      <a class="icon-btn home-square-btn" href="index.html">
+        <span class="home-square"></span>
+        <span class="home-label">HOME</span>
+      </a>
 
       <a class="icon-btn" href="https://instagram.com/peortizc" target="_blank" rel="noopener">
-        <svg class="icon" viewBox="0 0 24 24">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <rect x="5" y="5" width="14" height="14" rx="3"/>
           <circle cx="12" cy="12" r="3.5"/>
         </svg>
       </a>
 
       <a class="icon-btn" href="mailto:portizca@risd.edu">
-        <svg class="icon" viewBox="0 0 24 24">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M4 7h16v10H4z"/>
           <path d="M4 7l8 6 8-6"/>
         </svg>

@@ -30,8 +30,8 @@
 
       --home-label-gap: 4px;
 
-      /* IMPORTANT: this now actually controls the “end of PRESS” alignment */
-      --press-align-inset: 12px; /* try 12–28px */
+   
+      --press-align-inset: 12px;
 
       --viewer-h: 520px;
 
@@ -87,6 +87,20 @@
       cursor: url("cursor-black.svg") 2 2, auto !important;
     }
 
+    /* ✅ ONLY REQUESTED FIX: prevent I-beam/text selection on titles & images/links */
+    .brand-title,
+    .brand-subtitle,
+    .nav,
+    .nav-link,
+    .viewer,
+    .viewer *,
+    .thumbs,
+    .thumbs *{
+      user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+
     main{ flex: 1; } /* makes footer stay visible on short pages */
 
     .container-wide{
@@ -135,21 +149,24 @@
     }
 
     .nav-link{
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      font-weight:500;
-      color:var(--muted);
-      text-decoration:none;
-    }
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:500;
+  color:#666;              /* 👈 slightly lighter */
+  text-decoration:none;
+  transition: color .15s ease;
+}
 
-    .nav-link:hover{ color:var(--text); }
-
+.nav-link:hover{
+  color: var(--text);
+}
 
 .nav-link.is-active{
-color: var(--text);
-font-weight: 600; /* bolder when selected */
+  color: var(--text);      /* 👈 full black */
+  font-weight:600;
 }
+
 
     /* ================= GALLERY ================= */
     .gallery{
@@ -188,8 +205,11 @@ font-weight: 600; /* bolder when selected */
       position:relative;
       width:100%;
       height:var(--viewer-h);
-      background:#f2f2f2;
-      border:1px solid #e3e3e3;
+
+      /* ✅ ONLY INTERVENTION: remove gray box + border */
+      background: transparent;
+      border: none;
+
       overflow:hidden;
       display:flex;
       align-items:center;
@@ -317,7 +337,7 @@ z-index:2;
       overflow:hidden;
       line-height:0;
 
-      /* minimalist frame for selected state */
+
       outline: 0 solid transparent;
       outline-offset: 2px;
     }
@@ -340,7 +360,7 @@ z-index:2;
     }
 
     .thumb.is-selected{
-      outline: 1.5px solid #111; /* minimalist black frame */
+      outline: 1.5px solid #111; 
     }
 
     .thumb.is-selected img{
@@ -349,7 +369,7 @@ z-index:2;
       transform: none;
     }
 
-    /* ================= FOOTER (icons unchanged) ================= */
+    /* ================= FOOTER ================= */
     .site-footer{ padding:14px 0 26px; }
 
     .footer-inner{
@@ -453,19 +473,19 @@ z-index:2;
     <aside class="thumbs">
       <button class="thumb is-selected" data-hero="img/hero-001.jpg"><img src="img/thumb-01.jpg" alt=""></button>
       <button class="thumb" data-hero="img/hero-02.jpg"><img src="img/thumb-02.jpg" alt=""></button>
-      <button class="thumb" data-hero="img/hero-03.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-03.jpg"><img src="img/thumb-03.jpg" alt=""></button>
       <button class="thumb" data-hero="img/hero-04.jpg"><img src="img/thumb-04.jpg" alt=""></button>
-      <button class="thumb" data-hero="img/hero-05.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-05.jpg"><img src="img/thumb-05.jpg" alt=""></button>
       <button class="thumb" data-hero="img/hero-06.jpeg"><img src="img/thumb-06.jpeg" alt=""></button>
       <button class="thumb" data-hero="img/hero-07.jpeg"><img src="img/thumb-07.jpeg" alt=""></button>
-      <button class="thumb" data-hero="img/hero-08.jpg"><img src="img/thumb-02.jpg" alt=""></button>
-      <button class="thumb" data-hero="img/hero-09.jpg"><img src="img/thumb-02.jpg" alt=""></button>
-      <button class="thumb" data-hero="img/hero-10.jpg"><img src="img/thumb-02.jpg" alt=""></button>
-      <button class="thumb" data-hero="img/hero-11.jpg"><img src="img/thumb-02.jpg" alt=""></button>
-      <button class="thumb" data-hero="img/hero-12.jpg"><img src="img/thumb-02.jpg" alt=""></button>
-      <button class="thumb" data-hero="img/hero-13.jpg"><img src="img/thumb-02.jpg" alt=""></button>
-      <button class="thumb" data-hero="img/hero-14.jpg"><img src="img/thumb-02.jpg" alt=""></button>
-      <button class="thumb" data-hero="img/hero-15.jpg"><img src="img/thumb-02.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-08.png"><img src="img/thumb-08.png" alt=""></button>
+      <button class="thumb" data-hero="img/hero-09.png"><img src="img/thumb-09.png" alt=""></button>
+      <button class="thumb" data-hero="img/hero-10.jpeg"><img src="img/thumb-10.jpeg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-11.png"><img src="img/thumb-11.png" alt=""></button>
+      <button class="thumb" data-hero="img/hero-12.jpg"><img src="img/thumb-12.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-13.png"><img src="img/thumb-13.png" alt=""></button>
+      <button class="thumb" data-hero="img/hero-14.jpg"><img src="img/thumb-14.jpg" alt=""></button>
+      <button class="thumb" data-hero="img/hero-15.jpg"><img src="img/thumb-15.jpg" alt=""></button>
     </aside>
   </section>
 </main>

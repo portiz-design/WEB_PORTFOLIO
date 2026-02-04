@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pedro Ortiz Cazal — Architecture Portfolio</title>
+  <title>Pedro Ortiz Cazal — Resume</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,17 +15,38 @@
       --bg:#ffffff;
       --text:#111;
       --muted:#090909;
+
       --wide-max: 1600px;
       --wide-pad: 64px;
+
+      --thumb-gap: 26px;
+
       --font-title: "Space Grotesk", system-ui, sans-serif;
       --font-ui: "Kumbh Sans", system-ui, sans-serif;
+
+      --icon-size: 33px;
+      --icon-stroke: 2.4;
+      --home-label-gap: 4px;
+
+      /* about-like spacing */
       --header-pad-top: 56px;
       --header-pad-bottom: 28px;
+      --header-title-gap: 4px;
       --header-nav-push: 120px;
+
+      --page-top-gap: 66px;
+
+      /* resume layout */
+      --resume-hero-w: 65%;
+      --resume-max-text: 62ch;
+      --small: 12px;
+
+      /* NEW: same idea you used elsewhere */
+      --press-align-inset: 12px; /* try 12–28px */
     }
 
-    *{ box-sizing:border-box }
-    html,body{ height:100% }
+    *{box-sizing:border-box}
+    html,body{height:100%}
 
     body{
       cursor: url("cursor-black.svg") 2 2, auto;
@@ -33,14 +54,15 @@
       background:var(--bg);
       color:var(--text);
       font-family: var(--font-ui);
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
+
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     *{ cursor: url("cursor-black.svg") 2 2, auto !important; }
 
-    main{ flex:1 }
+    main{ flex: 1; }
 
     .container-wide{
       max-width: var(--wide-max);
@@ -53,29 +75,37 @@
 
     .header-inner{
       display:flex;
+      align-items:flex-start;
       justify-content:space-between;
       gap:24px;
     }
 
     .brand-title{
       font-family: var(--font-title);
-      font-size:40px;
-      font-weight:600;
-      letter-spacing:-0.1em;
-      line-height:0.72;
-      text-transform:uppercase;
+      font-size: 40px;
+      font-weight: 600;
+      letter-spacing: -0.1em;
+      line-height: 0.72;
+      text-transform: uppercase;
       margin:0;
     }
 
     .brand-subtitle{
+      margin-top: var(--header-title-gap);
       font-size:16px;
-      color:#222;
-      margin:4px 0 0;
+      font-weight:400;
+      letter-spacing: .02em;
+      line-height: 1.1;
+      margin-bottom:0;
+      color: #222;
     }
 
     .nav{
       display:flex;
       gap:22px;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
       margin-left: var(--header-nav-push);
     }
 
@@ -83,19 +113,186 @@
       font-size:12px;
       letter-spacing:.14em;
       text-transform:uppercase;
-      font-weight:500;
+      font-weight:400;
       color:var(--muted);
       text-decoration:none;
     }
 
-    .nav-link:hover{ color:var(--text); }
-
     .nav-link.is-active{
-      color:var(--text);
       font-weight:600;
+      color:var(--text);
     }
 
-    /* ================= FOOTER ================= */
+    /* ================= RESUME (about-like grid) ================= */
+    .resume-section{
+      margin-top: var(--page-top-gap);
+      margin-bottom: 40px;
+    }
+
+    .resume-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--thumb-gap);
+      align-items:start;                 /* TOP align both columns */
+      padding-left:22px;
+      justify-content:end;               /* allow grid to shrink + sit on the right */
+      width: fit-content;                /* shrink to content width */
+      margin-left:auto;                  /* push to the right side */
+      margin-right: var(--press-align-inset); /* align to end of PRESS */
+    }
+
+    .resume-hero{
+      margin:0;
+      justify-self:end;
+      align-self:start;                  /* TOP align image block */
+      display:block;                     /* no vertical centering */
+      margin-top: 0;
+    }
+
+    .resume-hero img{
+      width: var(--resume-hero-w);
+      height:auto;
+      display:block;
+      margin-left:auto;
+    }
+
+    .resume-card{
+      align-self:start;                  /* TOP align text */
+      max-width: var(--resume-max-text);
+    }
+
+    .resume-card h1{
+      font-weight:300;
+      letter-spacing:.04em;
+      margin:0 0 14px 0;
+    }
+
+    .resume-topline{
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color:#222;
+      margin: 0 0 18px 0;
+    }
+
+    .resume-meta{
+      font-size: 13.25px;
+      line-height: 1.68;
+      color:#111;
+      margin:0 0 18px 0;
+    }
+
+    .resume-meta a{
+      color:#111;
+      text-decoration:none;
+      border-bottom:1px solid rgba(17,17,17,.22);
+      padding-bottom:1px;
+    }
+
+    .resume-meta a:hover{
+      border-bottom-color: rgba(17,17,17,.55);
+    }
+
+    .resume-block{
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid #ededed;
+    }
+
+    .resume-block h2{
+      margin:0 0 10px 0;
+      font-size: 11px;
+      font-weight:600;
+      letter-spacing:.18em;
+      text-transform: uppercase;
+      color:#111;
+    }
+
+    .resume-item{ margin: 0 0 12px 0; }
+
+    .resume-item .row{
+      display:flex;
+      justify-content:space-between;
+      gap: 14px;
+      align-items:baseline;
+    }
+
+    .resume-item .title{
+      font-size: 13.25px;
+      line-height: 1.45;
+      color:#111;
+    }
+
+    .resume-item .when{
+      font-size: var(--small);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color:#555;
+      white-space: nowrap;
+    }
+
+    .resume-item .sub{
+      margin-top: 4px;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color:#333;
+    }
+
+    .resume-list{
+      margin: 8px 0 0 0;
+      padding-left: 18px;
+      color:#333;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .resume-actions{
+      margin-top: 18px;
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      height: 34px;
+      padding: 0 14px;
+      border: 1px solid #e3e3e3;
+      background: rgba(255,255,255,.86);
+      color:#111;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform: uppercase;
+      text-decoration:none;
+      border-radius: 999px;
+      backdrop-filter: blur(2px);
+    }
+
+    .btn:hover{
+      background: rgba(255,255,255,.98);
+      border-color:#d9d9d9;
+    }
+
+    /* Optional PDF embed (keeps same “hero” footprint) */
+    .pdf-frame{
+      width: var(--resume-hero-w);
+      aspect-ratio: 4 / 5;
+      background:#f2f2f2;
+      border:1px solid #e3e3e3;
+      overflow:hidden;
+      margin-left:auto;
+    }
+
+    .pdf-frame iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+
+    /* ================= FOOTER (same as about) ================= */
     .site-footer{ padding:14px 0 26px; }
 
     .footer-inner{
@@ -122,19 +319,54 @@
 
     .icon-btn:hover{ color:var(--text); }
 
+    .icon{
+      width:var(--icon-size);
+      height:var(--icon-size);
+      display:block;
+    }
+
+    .icon *{
+      stroke-width: var(--icon-stroke);
+      stroke: currentColor;
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
     .home-square{
-      width:33px;
-      height:33px;
+      width: var(--icon-size);
+      height: var(--icon-size);
       background:#111;
+      display:block;
     }
 
     .home-square-btn .home-label{
       position:absolute;
-      top:36px;
-      left:50%;
-      transform:translateX(-50%);
+      top: calc(100% + var(--home-label-gap));
+      left: 50%;
+      transform: translateX(-50%);
       font-size:9px;
       letter-spacing:.16em;
+      pointer-events:none;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1000px){
+      :root{ --wide-pad: 28px; }
+      .nav{ margin-left: 0; }
+
+      /* on small screens: normal flow, no nav alignment magic */
+      .resume-grid{
+        grid-template-columns: 1fr;
+        width:auto;
+        margin-left:0;
+        margin-right:0;
+        justify-content:start;
+      }
+
+      .resume-hero{ justify-self:start; }
+      .resume-hero img, .pdf-frame{ width: min(520px, 100%); margin-left: 0; }
+      .resume-card{ max-width: 70ch; }
     }
   </style>
 </head>
@@ -159,10 +391,121 @@
 </header>
 
 <main class="container-wide">
-  <section style="margin-top:66px;">
-    <div style="max-width:860px; padding-left:22px;">
-      <h1>Resume</h1>
-      <p>This is the resume page.</p>
+  <section class="resume-section">
+    <div class="resume-grid">
+
+      <figure class="resume-hero">
+        <img src="img/resume/resume-preview.png" alt="Resume preview">
+      </figure>
+
+      <div class="resume-card">
+        <h1>Resume</h1>
+        <p class="resume-topline">Selected experience &amp; credentials</p>
+
+        <p class="resume-meta">
+          Pedro Ortiz Cazal — Asunción / Providence<br>
+          <a href="mailto:portizca@risd.edu">portizca@risd.edu</a> ·
+          <a href="#">portiz.design</a> ·
+          <a href="https://instagram.com/peortizc" target="_blank" rel="noopener">@peortizc</a>
+        </p>
+
+        <div class="resume-actions">
+          <a class="btn" href="img/resume/resume.pdf" target="_blank" rel="noopener">Open PDF</a>
+          <a class="btn" href="img/resume/resume.pdf" download>Download</a>
+        </div>
+
+        <div class="resume-block">
+          <h2>Education</h2>
+
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>Rhode Island School of Design (RISD)</b> — M.Arch (Candidate)</div>
+              <div class="when">2024–2026</div>
+            </div>
+            <div class="sub">Studios in housing, cultural buildings, and site-specific construction. Focus on narrative space + material detailing.</div>
+          </div>
+
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>University of California</b> — Master of Design</div>
+              <div class="when">2021–2023</div>
+            </div>
+            <div class="sub">Product and spatial systems. Research-driven prototyping and fabrication workflows.</div>
+          </div>
+
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>Universidad Americana</b> — B.Arch</div>
+              <div class="when">2014–2019</div>
+            </div>
+            <div class="sub">Graduated with honors. Thesis explored inclusive cultural infrastructure and public space.</div>
+          </div>
+        </div>
+
+        <div class="resume-block">
+          <h2>Experience</h2>
+
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>Studio Name</b> — Architectural Designer</div>
+              <div class="when">2023–2024</div>
+            </div>
+            <div class="sub">
+              Worked on residential renovations and small commercial interiors, from concept to construction documents.
+              <ul class="resume-list">
+                <li>Developed design sets in AutoCAD + Rhino; coordinated consultant drawings.</li>
+                <li>Produced visualization packages (V-Ray / Enscape) for client review.</li>
+                <li>Prepared material schedules and shop drawing markups.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>Workshop / Fabrication Lab</b> — Fabrication Assistant</div>
+              <div class="when">2022–2023</div>
+            </div>
+            <div class="sub">
+              Supported model-making and prototyping using laser cutting, CNC, and hand tools.
+              <ul class="resume-list">
+                <li>Maintained safe workflows; assisted peers with file prep and material tests.</li>
+                <li>Built prototypes in plywood, acrylic, and textiles; documented results.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-block">
+          <h2>Skills</h2>
+          <div class="resume-item">
+            <div class="sub">
+              <b>Design:</b> Rhino, AutoCAD, Adobe CC, SketchUp, V-Ray, InDesign<br>
+              <b>Fabrication:</b> laser cutting, CNC basics, woodworking, acrylic forming, prototyping<br>
+              <b>Strengths:</b> clean detailing, clear narratives, systems thinking, client communication
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-block">
+          <h2>Awards / Exhibitions</h2>
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>Student Exhibition</b> — “Material Stories”</div>
+              <div class="when">2025</div>
+            </div>
+            <div class="sub">Group show featuring spatial installations and mixed-media prototypes.</div>
+          </div>
+
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>Design Award</b> — Emerging Designer (Finalist)</div>
+              <div class="when">2024</div>
+            </div>
+            <div class="sub">Recognized for a furniture series exploring joinery, portability, and craft.</div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 </main>
@@ -170,17 +513,20 @@
 <footer class="site-footer">
   <div class="container-wide footer-inner">
     <div class="footer-icons">
-      <a class="icon-btn home-square-btn" href="index.html"><span class="home-square"></span><span class="home-label">HOME</span></a>
+      <a class="icon-btn home-square-btn" href="index.html">
+        <span class="home-square"></span>
+        <span class="home-label">HOME</span>
+      </a>
 
       <a class="icon-btn" href="https://instagram.com/peortizc" target="_blank" rel="noopener">
-        <svg class="icon" viewBox="0 0 24 24">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <rect x="5" y="5" width="14" height="14" rx="3"/>
           <circle cx="12" cy="12" r="3.5"/>
         </svg>
       </a>
 
       <a class="icon-btn" href="mailto:portizca@risd.edu">
-        <svg class="icon" viewBox="0 0 24 24">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M4 7h16v10H4z"/>
           <path d="M4 7l8 6 8-6"/>
         </svg>

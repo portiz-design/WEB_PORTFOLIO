@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype html> 
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -138,31 +138,23 @@
       font-size:12px;
       letter-spacing:.14em;
       text-transform:uppercase;
-      font-weight:500;
+      font-weight:400;
       color:var(--muted);
       text-decoration:none;
     }
 
-    .nav-link:hover{ color:var(--text); }
-
-
-.nav-link.is-active{
-color: var(--text);
-font-weight: 600; /* bolder when selected */
-}
+    .nav-link.is-active{
+      font-weight:600;
+      color:var(--text);
+    }
 
     /* ================= GALLERY ================= */
     .gallery{
       margin: var(--gallery-top-gap) 0 40px;
-
       display: grid;
       grid-template-columns: var(--hero-col) max-content;
-
-      /* ✅ CHANGED: make hero↔thumbs spacing equal to thumb grid spacing */
       gap: var(--thumb-gap);
-
       align-items: start;
-
       justify-content: start;
       will-change: transform;
     }
@@ -177,10 +169,7 @@ font-weight: 600; /* bolder when selected */
 
     .viewer-wrap{
       width:100%;
-
-      /* ✅ CHANGED: keep the “editorial” left frame, remove RIGHT padding so spacing matches */
       padding: var(--hero-frame-pad-y) 0 var(--hero-frame-pad-y) var(--hero-frame-pad-x);
-
       background: transparent;
     }
 
@@ -196,7 +185,6 @@ font-weight: 600; /* bolder when selected */
       justify-content:center;
     }
 
-    /* ===== NEW: continuous horizontal band (track) ===== */
     .viewer-track{
       width:100%;
       height:100%;
@@ -226,18 +214,18 @@ font-weight: 600; /* bolder when selected */
     }
 
     .viewer-placeholder{
-position:absolute;
-inset:0;
-display:none; /* ✅ hide by default */
-align-items:center;
-justify-content:center;
-font-size:12px;
-letter-spacing:.18em;
-color:#9a9a9a;
-text-transform:uppercase;
-pointer-events:none;
-z-index:2;
-}
+      position:absolute;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      letter-spacing:.18em;
+      color:#9a9a9a;
+      text-transform:uppercase;
+      pointer-events:none;
+      z-index:2;
+    }
 
     .viewer-arrow{
       position:absolute;
@@ -317,7 +305,6 @@ z-index:2;
       overflow:hidden;
       line-height:0;
 
-      /* minimalist frame for selected state */
       outline: 0 solid transparent;
       outline-offset: 2px;
     }
@@ -340,13 +327,51 @@ z-index:2;
     }
 
     .thumb.is-selected{
-      outline: 1.5px solid #111; /* minimalist black frame */
+      outline: 1.5px solid #111;
     }
 
     .thumb.is-selected img{
       opacity: 1;
       filter: grayscale(0) saturate(1) contrast(1.02);
       transform: none;
+    }
+
+    /* ================= ABOUT (hero left, text right) ================= */
+    .about-section{
+      margin-top:66px;
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--thumb-gap);
+      align-items:start;
+      padding-left:22px;
+    }
+
+    .about-hero{
+      margin-top: -10%;
+      justify-self: end;
+    }
+
+    .about-hero img{
+      width:65%;
+      height:auto;
+      display:block;
+      margin-left:auto;
+    }
+
+    .about-text{ align-self: center; } /* ✅ added: center text to hero height */
+
+    .about-grid p[lang="es"]{
+      color:#555;
+      font-size:0.95em;
+      margin-top:60px;
+    }
+
+    .about-grid h1{
+      font-weight:300;
+      letter-spacing:.04em;
     }
 
     /* ================= FOOTER (icons unchanged) ================= */
@@ -417,22 +442,49 @@ z-index:2;
     </div>
 
     <nav class="nav">
-<a class="nav-link is-active" href="index.html">HOME</a>
-<a class="nav-link" href="about.html">ABOUT</a>
-<a class="nav-link" href="projects.html">PROJECTS</a>
-<a class="nav-link" href="resume.html">RESUME</a>
-<a class="nav-link" href="press.html">PRESS</a>
-</nav>
+      <a class="nav-link" href="index.html">HOME</a>
+      <a class="nav-link is-active" href="about.html">ABOUT</a>
+      <a class="nav-link" href="projects.html">PROJECTS</a>
+      <a class="nav-link" href="resume.html">RESUME</a>
+      <a class="nav-link" href="press.html">PRESS</a>
+    </nav>
+
   </div>
 </header>
 
 <main class="container-wide">
- <section style="margin-top:66px;">
-<div style="max-width:860px; padding-left:22px;">
-<h1>About</h1>
-<p>This is the about page.</p>
-</div>
-</section>
+  <section class="about-section">
+    <div class="about-grid">
+      <figure class="about-hero" style="margin:0;">
+        <img src="img/about/about.png" alt="">
+      </figure>
+
+      <div class="about-text">
+        <h1>About</h1>
+        <p>
+          Pedro Ortiz is an architect and designer from Paraguay, South America. He holds
+          a Master of Design from the University of California and a Master of Architecture
+          from the Rhode Island School of Design (RISD).
+        </p>
+
+        <p>
+          His work spans a wide range of scales, from furniture and product design to
+          corporate and residential architecture. Across these contexts, his practice
+          is driven by a careful attention to site, material, and use, treating design
+          as a way to connect people to the spaces and objects they inhabit.
+        </p>
+
+        <p lang="es">
+          Pedro Ortiz es arquitecto y diseñador paraguayo. Su trabajo se desarrolla
+          entre distintas escalas, desde el diseño de mobiliario y objetos hasta
+          proyectos de arquitectura corporativa y residencial. Su práctica valora
+          la relación entre el sitio, los materiales y las personas, entendiendo
+          el diseño como una herramienta para crear vínculos significativos con el
+          entorno construido.
+        </p>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
@@ -475,7 +527,6 @@ z-index:2;
       const img = document.createElement("img");
       img.alt = "";
 
-      // Only hide/show placeholder based on the current slide load state
       img.onload = () => { if (i === currentIndex) hidePlaceholder(); };
       img.onerror = () => { if (i === currentIndex) showPlaceholder(); };
 
@@ -501,14 +552,9 @@ z-index:2;
   }
 
   function updateUI(){
-    // Slide band
     viewerTrack.style.transform = `translateX(${-currentIndex * 100}%)`;
-
-    // Selected thumb
     thumbs.forEach(t => t.classList.remove("is-selected"));
     thumbs[currentIndex]?.classList.add("is-selected");
-
-    // Dots
     [...dotsWrap.children].forEach(d => d.classList.remove("is-active"));
     dotsWrap.children[currentIndex]?.classList.add("is-active");
   }
@@ -522,12 +568,10 @@ z-index:2;
   prevBtn.onclick = () => select(currentIndex - 1);
   nextBtn.onclick = () => select(currentIndex + 1);
 
-  // Init
   buildSlides();
   renderDots();
   select(currentIndex);
 
-  // ===== Align right edge of gallery to the right edge of the nav ("PRESS") =====
   const navEl = document.querySelector(".nav");
   const galleryEl = document.querySelector(".gallery");
 
