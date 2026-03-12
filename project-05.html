@@ -559,8 +559,8 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
 <script>
   const columnWidth = 30;
@@ -572,7 +572,7 @@
     const rect = el.getBoundingClientRect();
     const columns = Math.ceil(rect.width / columnWidth);
 
-    el.style.position = el.style.position || "relative";
+    if (!el.style.position) el.style.position = "relative";
 
     for (let i = 0; i < columns; i++) {
       const col = document.createElement("div");
@@ -625,8 +625,11 @@
   const splitLinesIfAvailable = (el) => {
     if (!el) return [el];
     if (typeof SplitText === "undefined") return [el];
-    try { return new SplitText(el, { type: "lines" }).lines; }
-    catch (e) { return [el]; }
+    try {
+      return new SplitText(el, { type: "lines" }).lines;
+    } catch (e) {
+      return [el];
+    }
   };
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -661,7 +664,7 @@
         .to(subtitleLines, { autoAlpha: 1, y: 0, duration: 0.8, ease: "power2.out" }, 0.15)
         .to(titleLines, { autoAlpha: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.06 }, 0.2);
 
-      window.addEventListener("load", () => heroTl.play());
+      requestAnimationFrame(() => heroTl.play());
     }
 
     if (meta) {
