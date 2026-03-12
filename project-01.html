@@ -23,8 +23,8 @@
       --font-ui: "Kumbh Sans", system-ui, sans-serif;
 
       /* Header */
-      --header-pad-top: 44px;     /* smaller */
-      --header-pad-bottom: 22px;  /* smaller */
+      --header-pad-top: 44px;    
+      --header-pad-bottom: 22px;  
       --header-title-gap: 4px;
       --header-nav-push: 120px;
 
@@ -38,15 +38,24 @@
       --body-font: 13.25px;
       --body-leading: 1.68;
 
+      /* Editorial spacing */
+      --meta-bottom: 28px;
+      --block-gap: 34px;
+      --section-title-top: 0;
+      --section-title-bottom: 10px;
+      --paragraph-gap: 14px;
+      --section-gap-after: 18px;
+
       /* Right rail images */
       --hero-aspect: 4 / 5;
+      --scroll-aspect: 16 / 9;
 
-      /* Footer icons (UNCHANGED) */
+      /* Footer icons */
       --icon-size: 33px;
       --icon-stroke: 2.4;
       --home-label-gap: 6px;
 
-      /* ===== Animation helpers ===== */
+      /* Animation helpers */
       --reveal-bg: var(--bg);
       --col-width: 30px;
     }
@@ -59,15 +68,13 @@
       background:var(--bg);
       color:var(--text);
       font-family: var(--font-ui);
-
       min-height:100vh;
       display:flex;
       flex-direction:column;
-
       cursor: url("cursor-black.svg") 2 2, auto;
+      padding-bottom: 120px;
     }
 
-    /* Keep your custom cursor everywhere */
     *{ cursor: url("cursor-black.svg") 2 2, auto !important; }
 
     main{ flex:1; }
@@ -78,7 +85,6 @@
       padding: 0 var(--wide-pad);
     }
 
-    /* ================= HEADER ================= */
     .site-header{ padding: var(--header-pad-top) 0 var(--header-pad-bottom); }
 
     .header-inner{
@@ -88,7 +94,6 @@
       gap:24px;
     }
 
-    /* smaller like Minor Lab */
     .brand-title{
       font-family: var(--font-title);
       font-size: 24px;
@@ -97,7 +102,7 @@
       line-height: 0.9;
       text-transform: uppercase;
       margin:0;
-      color:#111; /* black */
+      color:#111;
     }
 
     .brand-subtitle{
@@ -107,9 +112,9 @@
       letter-spacing: .14em;
       line-height: 1.2;
       margin-bottom:0;
-      color:#111; /* black */
+      color:#111;
       text-transform: uppercase;
-      opacity: .85; /* subtle softening, still black */
+      opacity: .85;
     }
 
     .nav{
@@ -137,13 +142,11 @@
       font-weight:600;
     }
 
-    /* ================= PROJECT LAYOUT (Minorlab-like) ================= */
     .project{
       margin-top: var(--content-top-gap);
-      padding-left: 0; /* IMPORTANT: aligns with header left edge */
+      padding-left: 0;
     }
 
-    /* Two-column: left text rail, right image rail */
     .project-grid{
       display:grid;
       grid-template-columns: var(--text-col) minmax(0, 1fr);
@@ -151,7 +154,6 @@
       align-items:start;
     }
 
-    /* LEFT RAIL */
     .project-left{
       max-width: var(--text-col);
     }
@@ -164,7 +166,7 @@
       text-transform: uppercase;
       margin:0 0 8px 0;
       line-height: 1.05;
-      color:#111; /* keep black */
+      color:#111;
     }
 
     .project-subtitle{
@@ -181,18 +183,25 @@
       line-height: 1.45;
       color:#111;
       white-space: normal;
-      margin-top: 0;
-      margin-bottom: 22px;
+      margin: 0 0 var(--meta-bottom) 0;
     }
 
     .meta b{ font-weight: 600; }
 
     .project-body{
-      display:block; /* editorial single column like Minorlab */
+      display:block;
+    }
+
+    .block{
+      margin-bottom: var(--block-gap);
+    }
+
+    .block:last-child{
+      margin-bottom:0;
     }
 
     .block h3{
-      margin: 22px 0 10px 0;
+      margin: var(--section-title-top) 0 var(--section-title-bottom) 0;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: .18em;
@@ -200,18 +209,21 @@
       color:#111;
     }
 
-    .block h3:first-child{ margin-top:0; }
-
     .block p{
-      margin: 0 0 14px 0;
+      margin: 0 0 var(--paragraph-gap) 0;
       font-size: var(--body-font);
       line-height: var(--body-leading);
       color:#111;
     }
 
-    .block p:last-child{ margin-bottom:0; }
+    .block p.section-end{
+      margin-bottom: var(--section-gap-after);
+    }
 
-    /* RIGHT RAIL */
+    .block p:last-child{
+      margin-bottom:0;
+    }
+
     .project-right{
       width:100%;
     }
@@ -219,7 +231,7 @@
     .hero-frame{
       width:100%;
       aspect-ratio: var(--hero-aspect);
-      background: transparent; /* remove gray box */
+      background: transparent;
       overflow:hidden;
       position:relative;
       border:0;
@@ -230,7 +242,7 @@
       height:100%;
       object-fit: cover;
       display:block;
-      position: relative; /* needed for top animation */
+      position: relative;
     }
 
     .hero-fallback{
@@ -246,7 +258,6 @@
       pointer-events:none;
     }
 
-    /* Right rail big images stacked */
     .project-scroll-test{
       margin-top: 26px;
       width: 100%;
@@ -254,8 +265,8 @@
 
     .scroll-image-frame{
       width:100%;
-      aspect-ratio: 16 / 9;
-      background: transparent; /* remove gray box */
+      aspect-ratio: var(--scroll-aspect);
+      background: transparent;
       overflow:hidden;
       position:relative;
     }
@@ -265,7 +276,25 @@
       height:100%;
       object-fit:cover;
       display:block;
-      position: relative; /* needed for top animation */
+      position: relative;
+    }
+
+    /* Extra-wide final drawing */
+    .project-scroll-test.is-full-bleed{
+      width: calc(100% + var(--text-col) + var(--grid-gap));
+      margin-left: calc(-1 * (var(--text-col) + var(--grid-gap)));
+    }
+
+    .scroll-image-frame.is-full-bleed{
+      width: 100%;
+      aspect-ratio: 28 / 9;
+    }
+
+    .scroll-image-frame.is-full-bleed img{
+      width:100%;
+      height:100%;
+      object-fit: contain;
+      background: transparent;
     }
 
     .scroll-fallback{
@@ -281,18 +310,35 @@
       pointer-events:none;
     }
 
-    /* ================= FOOTER (icons aligned) ================= */
-    .site-footer{ padding:14px 0 26px; }
+    .site-footer{
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10000;
+      padding: 0;
+      pointer-events: none;
+      background: transparent;
+    }
 
     .footer-inner{
       display:flex;
       justify-content:flex-end;
+      align-items:flex-end;
     }
 
     .footer-icons{
       display:flex;
       gap:16px;
-      align-items:flex-start; /* key: align all icon boxes to same top */
+      align-items:flex-start;
+      margin-right: 64px;
+      margin-bottom: 26px;
+      padding: 12px 14px 10px 14px;
+      background: #ffffff;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      pointer-events: auto;
     }
 
     .icon-btn{
@@ -306,7 +352,6 @@
 
     .icon-btn:hover{ color:var(--text); }
 
-    /* NEW: fixed icon box so HOME square + svg icons share identical footprint */
     .icon-box{
       width: var(--icon-size);
       height: var(--icon-size);
@@ -346,11 +391,11 @@
       stroke-linejoin:round;
     }
 
-    /* ================= REVEAL COLUMNS (GSAP effect) ================= */
     .photo-reveal{
       position: relative;
       overflow: hidden;
     }
+
     .photo-reveal .col{
       pointer-events:none;
       position:absolute;
@@ -358,6 +403,7 @@
       bottom:0;
       z-index: 3;
     }
+
     .photo-reveal .col__bg{
       pointer-events:none;
       position:absolute;
@@ -368,15 +414,42 @@
       background: var(--reveal-bg);
     }
 
-    /* ================= RESPONSIVE ================= */
     @media (max-width: 1100px){
-      :root{ --wide-pad: 28px; --grid-gap: 28px; --text-col: 460px; }
+      :root{
+        --wide-pad: 28px;
+        --grid-gap: 28px;
+        --text-col: 460px;
+      }
       .nav{ margin-left: 0; }
     }
 
     @media (max-width: 900px){
       .project-grid{ grid-template-columns: 1fr; }
       .project-left{ max-width: 680px; }
+
+      .project-scroll-test.is-full-bleed{
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .scroll-image-frame.is-full-bleed{
+        aspect-ratio: 16 / 9;
+      }
+    }
+
+    @media (max-width: 640px){
+      body{
+        padding-bottom: 110px;
+      }
+
+      .footer-inner{
+        justify-content:center;
+      }
+
+      .footer-icons{
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
     }
   </style>
 </head>
@@ -402,10 +475,8 @@
 
 <main class="container-wide">
   <section class="project">
-
     <div class="project-grid">
 
-      <!-- LEFT RAIL (text aligned to header) -->
       <div class="project-left">
         <h1 class="project-title js-hero-title">THE UNKNOWN, GALLERY</h1>
         <p class="project-subtitle js-hero-subtitle">Exhibition Complex for Indigenous &amp; Underrepresented Artists</p>
@@ -413,7 +484,6 @@
         <div class="meta js-meta">
           <div><b>Architect:</b> Pedro Ortiz</div>
           <div><b>Project Category:</b> Academic, “Architectural Studio VIII” course</div>
-          <div><b>Design Completion Period &amp; Year:</b> 136 Hrs., 2017</div>
           <div><b>Institution:</b> Universidad Americana</div>
           <div><b>Media:</b> AutoCAD, Vray, Sketchup</div>
           <div><b>Floor Area:</b> 1820 m²</div>
@@ -425,58 +495,58 @@
         </div>
 
         <div class="project-body js-body">
+
           <div class="block">
             <h3>Background</h3>
-            <p>
-              In South America, the arts and exhibition spaces have been historically dominated by white European men and their descendants.
-              Even in present times, art galleries are off-limits spaces for underrepresented artists such as indigenous people, women,
-              and people from the LGBTQ+ community, who are often discriminated against for their race, sexuality, and/or economic status.
+            <p class="section-end">
+              Across South America, artistic institutions and exhibition spaces have long been shaped by a narrow cultural establishment. As a result, many artists from underrepresented communities have remained excluded from institutional platforms, their voices often unseen or unheard.
             </p>
 
             <h3>The Idea</h3>
             <p>
-              The proposal envisions the design and creation of an open, safe, and inclusive space where artists from diverse backgrounds
-              and socioeconomic statuses can showcase their creativity. The Unknown Gallery’s mission is to amplify the voices of artists
-              often silenced and relegated to exclusion and anonymity.
+              The Unknown Gallery proposes a space where those voices can emerge. The project envisions an open and inclusive cultural institution where artists from diverse backgrounds and socioeconomic contexts can present their work freely.
+            </p>
+            <p class="section-end">
+              Rather than reinforcing traditional hierarchies within the art world, the gallery seeks to create a place where creativity, identity, and expression can exist without barriers.
             </p>
 
             <h3>Design Concept</h3>
             <p>
-              The design follows a sober and minimalist style where the architecture aims at highlighting the artworks on display.
-              Bright spaces composed of straight lines and simple geometric shapes are proposed.
+              The architecture adopts a sober and minimalist language so that the artworks themselves remain the central focus. Bright spaces defined by clear geometries and a restrained material palette establish an atmosphere of calm and clarity.
+            </p>
+            <p class="section-end">
+              The spatial organization is intentionally simple. Exhibition rooms unfold horizontally in a linear sequence, creating a continuous gallery experience. Supporting programs are vertically organized, allowing the building to maintain a clear and legible structure.
             </p>
           </div>
 
           <div class="block">
-            <p>
-              Neutral colors and noble natural materials were selected to achieve architectural plasticity that conveys order, durability, and elegance.
-              The spatial organization is quite simple. The exhibition rooms follow a horizontal linear organization, where freedom is absolute.
-            </p>
-
-            <p>
-              The glass openings not only allow visual connection but also provide protection, as it creates a space where artists feel free but safe.
-              White color takes over the interiors with the goal of symbolizing a blank canvas at the disposal of the artists.
-            </p>
-
             <h3>Program &amp; Operation</h3>
+            <p><b>Theater:</b> A performance space for theater, singing, and dance located in the basement, providing controlled acoustics, lighting, and privacy for performers.</p>
+            <p><b>Offices:</b> Offices supporting the management and daily operations of the gallery and its programs.</p>
+            <p><b>Art Gallery:</b> Five interconnected exhibition rooms form a sequential gallery. Three are dedicated to graphic arts, while two operate as flexible spaces for sculptures and temporary installations.</p>
+            <p><b>Restaurant:</b> The restaurant offers a platform for chefs from underrepresented communities, creating space for culinary traditions that are often overlooked. Through weekly rotating events organized by the gallery, these traditions are shared, preserved, and celebrated.</p>
+            <p class="section-end"><b>Rooftop Garden:</b> A rooftop garden of medicinal plants &amp; wildflowers honors Paraguay’s indigenous botanical traditions. The space also functions as an open-air sculpture terrace.</p>
+
+            <h3>Symbolic Design Elements</h3>
             <p>
-              <b>Art Gallery:</b> the exhibition gallery consists of five interconnected sequential rooms, three of which are exclusive for graphic arts
-              and two which are for mixed use, to display sculptures and temporary installations.
+              White interiors evoke the notion of a blank canvas—an architectural surface ready to receive the voices and creativity of those who occupy it.
             </p>
             <p>
-              <b>Theater:</b> a space for theatrical expression, singing, and dancing is located in the basement of the building to provide good acoustics,
-              lighting, and extra privacy for the performers.
+              A reflecting pool surrounding the entrance and exhibition halls captures the image of the building, its visitors, and the surrounding landscape, reinforcing the idea of art as a reflection of human experience.
+            </p>
+            <p>
+              Large glass openings create fluid connections between interior spaces and the surrounding environment, reinforcing the idea of openness while still offering a protected space for artistic expression.
             </p>
           </div>
+
         </div>
       </div>
 
-      <!-- RIGHT RAIL (images stacked like Minorlab) -->
       <div class="project-right">
         <div class="hero-frame photo-reveal js-hero-photo">
           <img
-            src="img/projects/project 1/hero-03.jpg"
-            alt="The Unknown, Gallery — hero"
+            src="img/projects/project 1/g-01.png"
+            alt="The Unknown, Gallery — hero image"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
           />
           <div class="hero-fallback" style="display:none;">HERO IMAGE</div>
@@ -485,8 +555,8 @@
         <section class="project-scroll-test js-scroll-test">
           <div class="scroll-image-frame photo-reveal js-scroll-photo">
             <img
-              src="img/projects/project 1/hero-04.jpg"
-              alt="The Unknown, Gallery — large image"
+              src="img/projects/project 1/g-02.png"
+              alt="The Unknown, Gallery — image 2"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
             <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
@@ -496,8 +566,8 @@
         <section class="project-scroll-test js-scroll-test">
           <div class="scroll-image-frame photo-reveal js-scroll-photo">
             <img
-              src="img/projects/project 1/hero-05.jpg"
-              alt="The Unknown, Gallery — large image 2"
+              src="img/projects/project 1/g-03.jpg"
+              alt="The Unknown, Gallery — image 3"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
             <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
@@ -507,8 +577,8 @@
         <section class="project-scroll-test js-scroll-test">
           <div class="scroll-image-frame photo-reveal js-scroll-photo">
             <img
-              src="img/projects/project 1/hero-06.jpg"
-              alt="The Unknown, Gallery — large image 3"
+              src="img/projects/project 1/g-04.png"
+              alt="The Unknown, Gallery — image 4"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
             <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
@@ -518,17 +588,38 @@
         <section class="project-scroll-test js-scroll-test">
           <div class="scroll-image-frame photo-reveal js-scroll-photo">
             <img
-              src="img/projects/project 1/hero-07.jpg"
-              alt="The Unknown, Gallery — large image 4"
+              src="img/projects/project 1/g-05.png"
+              alt="The Unknown, Gallery — image 5"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
             <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 1/g-06.png"
+              alt="The Unknown, Gallery — image 6"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test is-full-bleed">
+          <div class="scroll-image-frame is-full-bleed photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 1/g-07.png"
+              alt="The Unknown, Gallery — panoramic drawing"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">PANORAMA IMAGE</div>
           </div>
         </section>
       </div>
 
     </div>
-
   </section>
 </main>
 
@@ -561,15 +652,12 @@
   </div>
 </footer>
 
-<!-- ===== GSAP (free) ===== -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
 <script>
-  // ====== Config ======
   const columnWidth = 30;
 
-  // ====== Helpers ======
   const createColumns = (el) => {
     if (!el) return;
     if (el.querySelector(".col")) return;
@@ -647,7 +735,6 @@
 
     const bodyText = document.querySelectorAll(".js-body p, .js-body h3");
 
-    // 1) HERO LOAD ANIMATION
     if (heroPhotoFrame) {
       createColumns(heroPhotoFrame);
 
@@ -670,7 +757,6 @@
       window.addEventListener("load", () => heroTl.play());
     }
 
-    // 2) META fade-up
     if (meta) {
       const metaItems = meta.querySelectorAll("div");
       gsap.set(metaItems, { autoAlpha: 0, y: 22 });
@@ -683,7 +769,6 @@
       });
     }
 
-    // 3) BODY fade-up
     if (bodyText.length) {
       gsap.set(bodyText, { autoAlpha: 0, y: 22 });
 
@@ -695,7 +780,6 @@
       });
     }
 
-    // 4) ALL RIGHT-RAIL IMAGES reveal on scroll
     const scrollTests = document.querySelectorAll(".js-scroll-test");
     scrollTests.forEach((section) => {
       const frame = section.querySelector(".js-scroll-photo");

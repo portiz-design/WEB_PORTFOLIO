@@ -28,7 +28,6 @@
       --icon-stroke: 2.4;
       --home-label-gap: 4px;
 
-      /* about-like spacing */
       --header-pad-top: 56px;
       --header-pad-bottom: 28px;
       --header-title-gap: 4px;
@@ -38,11 +37,11 @@
 
       /* resume layout */
       --resume-hero-w: 65%;
-      --resume-max-text: 62ch;
+      --resume-max-text: 64ch;
       --small: 12px;
 
-      /* NEW: same idea you used elsewhere */
-      --press-align-inset: 12px; /* try 12–28px */
+      --press-align-inset: 12px;
+      --section-gap: 20px;
     }
 
     *{box-sizing:border-box}
@@ -54,7 +53,6 @@
       background:var(--bg);
       color:var(--text);
       font-family: var(--font-ui);
-
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -123,7 +121,6 @@
       color:var(--text);
     }
 
-    /* ================= RESUME (about-like grid) ================= */
     .resume-section{
       margin-top: var(--page-top-gap);
       margin-bottom: 40px;
@@ -131,22 +128,22 @@
 
     .resume-grid{
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 0.9fr 1.1fr;
       gap: var(--thumb-gap);
-      align-items:start;                 /* TOP align both columns */
+      align-items:start;
       padding-left:22px;
-      justify-content:end;               /* allow grid to shrink + sit on the right */
-      width: fit-content;                /* shrink to content width */
-      margin-left:auto;                  /* push to the right side */
-      margin-right: var(--press-align-inset); /* align to end of PRESS */
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     .resume-hero{
       margin:0;
       justify-self:end;
-      align-self:start;                  /* TOP align image block */
-      display:block;                     /* no vertical centering */
+      align-self:start;
+      display:block;
       margin-top: 0;
+      position: sticky;
+      top: 32px;
     }
 
     .resume-hero img{
@@ -154,30 +151,36 @@
       height:auto;
       display:block;
       margin-left:auto;
+      border:1px solid #e9e9e9;
     }
 
     .resume-card{
-      align-self:start;                  /* TOP align text */
+      align-self:start;
       max-width: var(--resume-max-text);
+      padding-bottom: 10px;
     }
 
     .resume-card h1{
-      font-weight:300;
-      letter-spacing:.04em;
-      margin:0 0 14px 0;
+      font-family: var(--font-title);
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -.05em;
+      line-height: 1;
+      margin:0 0 10px 0;
+      text-transform: uppercase;
     }
 
     .resume-topline{
-      font-size: 12px;
-      letter-spacing: .14em;
+      font-size: 13px;
+      letter-spacing: .16em;
       text-transform: uppercase;
       color:#222;
       margin: 0 0 18px 0;
     }
 
     .resume-meta{
-      font-size: 13.25px;
-      line-height: 1.68;
+      font-size: 14px;
+      line-height: 1.72;
       color:#111;
       margin:0 0 18px 0;
     }
@@ -193,22 +196,30 @@
       border-bottom-color: rgba(17,17,17,.55);
     }
 
+    .resume-profile{
+      font-size: 13.5px;
+      line-height: 1.68;
+      color:#222;
+      margin: 0 0 22px 0;
+      max-width: 60ch;
+    }
+
     .resume-block{
-      margin-top: 18px;
-      padding-top: 18px;
+      margin-top: 20px;
+      padding-top: 20px;
       border-top: 1px solid #ededed;
     }
 
     .resume-block h2{
-      margin:0 0 10px 0;
-      font-size: 11px;
+      margin:0 0 13px 0;
+      font-size: 13px;
       font-weight:600;
       letter-spacing:.18em;
       text-transform: uppercase;
       color:#111;
     }
 
-    .resume-item{ margin: 0 0 12px 0; }
+    .resume-item{ margin: 0 0 16px 0; }
 
     .resume-item .row{
       display:flex;
@@ -218,13 +229,13 @@
     }
 
     .resume-item .title{
-      font-size: 13.25px;
+      font-size: 14.25px;
       line-height: 1.45;
       color:#111;
     }
 
     .resume-item .when{
-      font-size: var(--small);
+      font-size: 12px;
       letter-spacing: .08em;
       text-transform: uppercase;
       color:#555;
@@ -232,9 +243,9 @@
     }
 
     .resume-item .sub{
-      margin-top: 4px;
-      font-size: 12.5px;
-      line-height: 1.55;
+      margin-top: 5px;
+      font-size: 13px;
+      line-height: 1.62;
       color:#333;
     }
 
@@ -242,8 +253,67 @@
       margin: 8px 0 0 0;
       padding-left: 18px;
       color:#333;
-      font-size: 12.5px;
-      line-height: 1.55;
+      font-size: 13px;
+      line-height: 1.62;
+    }
+
+    .resume-split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items:start;
+    }
+
+    .mini-block{
+      margin-top: 2px;
+    }
+
+    .mini-block h3{
+      margin:0 0 8px 0;
+      font-size: 11px;
+      font-weight:600;
+      letter-spacing:.18em;
+      text-transform: uppercase;
+      color:#111;
+    }
+
+    .tag-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px 10px;
+      margin-top: 8px;
+    }
+
+    .tag{
+      font-size: 11.75px;
+      line-height: 1;
+      padding: 8px 10px;
+      border:1px solid #e7e7e7;
+      border-radius:999px;
+      color:#222;
+      background:#fff;
+    }
+
+    .inline-feature-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-left: 8px;
+      padding: 3px 10px 2px;
+      border: 1px solid #e3e3e3;
+      border-radius: 999px;
+      text-decoration:none;
+      color:#111;
+      font-size:10.5px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      background:#fff;
+      vertical-align:middle;
+    }
+
+    .inline-feature-link:hover{
+      background:#f8f8f8;
+      border-color:#d2d2d2;
     }
 
     .resume-actions{
@@ -275,7 +345,6 @@
       border-color:#d9d9d9;
     }
 
-    /* Optional PDF embed (keeps same “hero” footprint) */
     .pdf-frame{
       width: var(--resume-hero-w);
       aspect-ratio: 4 / 5;
@@ -292,7 +361,7 @@
       display:block;
     }
 
-    /* ================= FOOTER (same as about) ================= */
+    /* ================= FOOTER ================= */
     .site-footer{ padding:14px 0 26px; }
 
     .footer-inner{
@@ -355,18 +424,29 @@
       :root{ --wide-pad: 28px; }
       .nav{ margin-left: 0; }
 
-      /* on small screens: normal flow, no nav alignment magic */
       .resume-grid{
         grid-template-columns: 1fr;
+        max-width:none;
         width:auto;
-        margin-left:0;
-        margin-right:0;
-        justify-content:start;
+        margin:0;
+        padding-left:0;
       }
 
-      .resume-hero{ justify-self:start; }
-      .resume-hero img, .pdf-frame{ width: min(520px, 100%); margin-left: 0; }
+      .resume-hero{
+        position: static;
+        justify-self:start;
+      }
+
+      .resume-hero img, .pdf-frame{
+        width: min(520px, 100%);
+        margin-left: 0;
+      }
+
       .resume-card{ max-width: 70ch; }
+
+      .resume-split{
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -400,18 +480,25 @@
 
       <div class="resume-card">
         <h1>Resume</h1>
-        <p class="resume-topline">Selected experience &amp; credentials</p>
+        <p class="resume-topline">Architecture · Design · Fabrication · AI Workflow</p>
 
         <p class="resume-meta">
-          Pedro Ortiz Cazal — Asunción / Providence<br>
+          Pedro Ortiz Cazal — Providence / Asunción<br>
           <a href="mailto:portizca@risd.edu">portizca@risd.edu</a> ·
-          <a href="#">portiz.design</a> ·
+          <a href="mailto:pedroeortizc@gmail.com">pedroeortizc@gmail.com</a> ·
           <a href="https://instagram.com/peortizc" target="_blank" rel="noopener">@peortizc</a>
         </p>
 
+        <p class="resume-profile">
+          Architectural designer focused on creating meaningful spaces through material sensitivity,
+          fabrication, and future-oriented digital workflows. Deeply interested in integrating AI,
+          visualization tools, and emerging technologies into an advanced design practice that looks
+          forward while remaining grounded in craft, clarity, and human experience.
+        </p>
+
         <div class="resume-actions">
-          <a class="btn" href="img/resume/resume.pdf" target="_blank" rel="noopener">Open PDF</a>
-          <a class="btn" href="img/resume/resume.pdf" download>Download</a>
+          <a class="btn" href="resume/CV2026.pdf" target="_blank" rel="noopener">See PDF</a>
+          <a class="btn" href="resume/CV2026.pdf" download>Download PDF</a>
         </div>
 
         <div class="resume-block">
@@ -419,89 +506,194 @@
 
           <div class="resume-item">
             <div class="row">
-              <div class="title"><b>Rhode Island School of Design (RISD)</b> — M.Arch (Candidate)</div>
-              <div class="when">2024–2026</div>
+              <div class="title"><b>Rhode Island School of Design (RISD)</b> — Master of Architecture</div>
+              <div class="when">2025–2027</div>
             </div>
-            <div class="sub">Studios in housing, cultural buildings, and site-specific construction. Focus on narrative space + material detailing.</div>
+            <div class="sub">M.Arch candidate, CGPA: 4.0 / 4.0 · Providence, Rhode Island</div>
           </div>
 
           <div class="resume-item">
             <div class="row">
-              <div class="title"><b>University of California</b> — Master of Design</div>
-              <div class="when">2021–2023</div>
+              <div class="title"><b>University of California, Davis</b> — MFA in Design</div>
+              <div class="when">2022–2024</div>
             </div>
-            <div class="sub">Product and spatial systems. Research-driven prototyping and fabrication workflows.</div>
+            <div class="sub">CGPA: 4.0 / 4.0 · Davis, California</div>
           </div>
 
           <div class="resume-item">
             <div class="row">
-              <div class="title"><b>Universidad Americana</b> — B.Arch</div>
-              <div class="when">2014–2019</div>
+              <div class="title"><b>Universidad Americana</b> — BS in Architecture</div>
+              <div class="when">2015–2020</div>
             </div>
-            <div class="sub">Graduated with honors. Thesis explored inclusive cultural infrastructure and public space.</div>
+            <div class="sub">CGPA: 4.6 / 5.0</div>
           </div>
         </div>
 
         <div class="resume-block">
-          <h2>Experience</h2>
+          <h2>Studio Experience</h2>
 
           <div class="resume-item">
             <div class="row">
-              <div class="title"><b>Studio Name</b> — Architectural Designer</div>
-              <div class="when">2023–2024</div>
+              <div class="title"><b>California Lighting Technology Center</b> — Teaching Assistant</div>
+              <div class="when">2022–2025</div>
             </div>
             <div class="sub">
-              Worked on residential renovations and small commercial interiors, from concept to construction documents.
+              Technology, research & innovation · Davis, California
               <ul class="resume-list">
-                <li>Developed design sets in AutoCAD + Rhino; coordinated consultant drawings.</li>
-                <li>Produced visualization packages (V-Ray / Enscape) for client review.</li>
-                <li>Prepared material schedules and shop drawing markups.</li>
+                <li>Supported and guided scale model making and solar design courses through hands-on instruction and technical assistance.</li>
+                <li>Helped students develop realistic physical models, material strategies, and presentation-ready prototypes.</li>
+                <li>Delivered lectures, coordinated class materials, and managed budgeting and purchasing for course needs.</li>
+                <li>Worked closely with faculty to streamline workflows between design teaching, fabrication, and research support.</li>
               </ul>
             </div>
           </div>
 
           <div class="resume-item">
             <div class="row">
-              <div class="title"><b>Workshop / Fabrication Lab</b> — Fabrication Assistant</div>
+              <div class="title"><b>Achon Industrial</b> — Commercial Architect for Modular & Custom Furniture Design</div>
+              <div class="when">2017–2021</div>
+            </div>
+            <div class="sub">
+              Asunción, Paraguay
+              <ul class="resume-list">
+                <li>Designed modular and custom furniture systems and developed project specifications for manufacturing.</li>
+                <li>Led client consultations, translating functional needs and spatial requirements into tailored design concepts.</li>
+                <li>Managed project negotiations from proposal stage to contract definition, helping move projects smoothly into production.</li>
+                <li>Prepared detailed budgets aligned with design intent, fabrication constraints, and project scope.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>De Loof Project Management</b> — Project Management Assistant / Technical Advisor</div>
+              <div class="when">2015–2017</div>
+            </div>
+            <div class="sub">
+              Corporate Area, Itaipu Dam · Paraguay / Brazil
+              <ul class="resume-list">
+                <li>Prepared executive and construction budgets for architectural and corporate projects.</li>
+                <li>Produced technical specifications and coordinated project review and approval processes.</li>
+                <li>Monitored project development and progress between the studio, consultants, and other stakeholders.</li>
+                <li>Supervised staff and conducted in situ surveys and site data collection to support project documentation.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>XYZ Engineering Studio</b> — AutoCAD Draftsman</div>
+              <div class="when">2014–2015</div>
+            </div>
+            <div class="sub">
+              Asunción, Paraguay
+              <ul class="resume-list">
+                <li>Conducted on-site measurements for construction and demolition projects.</li>
+                <li>Produced technical drawings for healthcare facility expansion projects and related documentation.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-block">
+          <h2>Skills & Workflow</h2>
+
+          <div class="resume-split">
+            <div class="mini-block">
+              <h3>Design / Software</h3>
+              <div class="tag-list">
+                <span class="tag">Rhino 8</span>
+                <span class="tag">AutoCAD</span>
+                <span class="tag">Revit</span>
+                <span class="tag">SketchUp</span>
+                <span class="tag">V-Ray</span>
+                <span class="tag">Adobe CC</span>
+                <span class="tag">Website Design</span>
+                <span class="tag">Fusion</span>
+              </div>
+            </div>
+
+            <div class="mini-block">
+              <h3>AI / Emerging Workflow</h3>
+              <div class="tag-list">
+                <span class="tag">Gendo</span>
+                <span class="tag">Nano Banana</span>
+                <span class="tag">Claude</span>
+                <span class="tag">AI Visualization</span>
+                <span class="tag">Digital Fabrication</span>
+                <span class="tag">Model Making</span>
+                <span class="tag">Prototyping</span>
+                <span class="tag">Future-Oriented Design</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-block">
+          <h2>Awards</h2>
+
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>Fulbright Scholar</b></div>
               <div class="when">2022–2023</div>
             </div>
-            <div class="sub">
-              Supported model-making and prototyping using laser cutting, CNC, and hand tools.
-              <ul class="resume-list">
-                <li>Maintained safe workflows; assisted peers with file prep and material tests.</li>
-                <li>Built prototypes in plywood, acrylic, and textiles; documented results.</li>
-              </ul>
+          </div>
+
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>UC Davis Provost’s Award</b></div>
+              <div class="when">2022–2023</div>
             </div>
           </div>
         </div>
 
         <div class="resume-block">
-          <h2>Skills</h2>
+          <h2>Exhibitions / Features</h2>
+
           <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>NYCxDESIGN</b> — Upcoming Exhibition</div>
+              <div class="when">2026</div>
+            </div>
+          </div>
+
+          <div class="resume-item">
+            <div class="row">
+              <div class="title"><b>Form Portfolios</b> — Featured Page</div>
+              <div class="when">2026</div>
+            </div>
             <div class="sub">
-              <b>Design:</b> Rhino, AutoCAD, Adobe CC, SketchUp, V-Ray, InDesign<br>
-              <b>Fabrication:</b> laser cutting, CNC basics, woodworking, acrylic forming, prototyping<br>
-              <b>Strengths:</b> clean detailing, clear narratives, systems thinking, client communication
+              Featured in RISD students’ site-specific furniture work inspired by Louis Kahn.
+              <a
+                class="inline-feature-link"
+                href="https://www.formportfolios.com/moments/risd-students-design-site-specific-furniture-inspired-by-louis-kahn"
+                target="_blank"
+                rel="noopener"
+              >
+                Click to see
+              </a>
             </div>
-          </div>
-        </div>
-
-        <div class="resume-block">
-          <h2>Awards / Exhibitions</h2>
-          <div class="resume-item">
-            <div class="row">
-              <div class="title"><b>Student Exhibition</b> — “Material Stories”</div>
-              <div class="when">2025</div>
-            </div>
-            <div class="sub">Group show featuring spatial installations and mixed-media prototypes.</div>
           </div>
 
           <div class="resume-item">
             <div class="row">
-              <div class="title"><b>Design Award</b> — Emerging Designer (Finalist)</div>
+              <div class="title"><b>Manetti Shrem Museum of Art</b></div>
               <div class="when">2024</div>
             </div>
-            <div class="sub">Recognized for a furniture series exploring joinery, portability, and craft.</div>
+            <div class="sub">MFA Thesis Exhibition</div>
+          </div>
+
+        </div>
+
+        <div class="resume-block">
+          <h2>Languages</h2>
+          <div class="resume-item">
+            <div class="sub">
+              <b>English:</b> Full Professional Fluency<br>
+              <b>Spanish:</b> Native<br>
+              <b>Guaraní:</b> Native<br>
+              <b>Portuguese:</b> Basic
+            </div>
           </div>
         </div>
 

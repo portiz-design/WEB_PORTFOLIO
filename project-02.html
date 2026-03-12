@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pedro Ortiz Cazal — Close Enough</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Kumbh+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111;
+      --muted:#090909;
+
+      --wide-max: 1600px;
+      --wide-pad: 64px;
+
+      --font-title: "Space Grotesk", system-ui, sans-serif;
+      --font-ui: "Kumbh Sans", system-ui, sans-serif;
+
+      /* Header */
+      --header-pad-top: 44px;    
+      --header-pad-bottom: 22px;  
+      --header-title-gap: 4px;
+      --header-nav-push: 120px;
+
+      /* Layout */
+      --content-top-gap: 56px;
+      --grid-gap: 44px;
+
+      /* Left editorial column */
+      --text-col: 520px;
+      --meta-font: 12px;
+      --body-font: 13.25px;
+      --body-leading: 1.68;
+
+      /* Editorial spacing */
+      --meta-bottom: 28px;
+      --block-gap: 34px;
+      --section-title-top: 0;
+      --section-title-bottom: 10px;
+      --paragraph-gap: 14px;
+      --section-gap-after: 18px;
+
+      /* Footer icons */
+      --icon-size: 33px;
+      --icon-stroke: 2.4;
+      --home-label-gap: 6px;
+
+      /* Animation helpers */
+      --reveal-bg: var(--bg);
+      --col-width: 30px;
+
+      /* Footer clearance */
+      --footer-clearance: 96px;
+    }
+
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: var(--font-ui);
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      cursor: url("cursor-black.svg") 2 2, auto;
+      /* Padding added to prevent footer from covering content */
+      padding-bottom: var(--footer-clearance);
+    }
+
+    *{ cursor: url("cursor-black.svg") 2 2, auto !important; }
+
+    main{ flex:1; }
+
+    .container-wide{
+      max-width: var(--wide-max);
+      margin: 0 auto;
+      padding: 0 var(--wide-pad);
+    }
+
+    .site-header{ padding: var(--header-pad-top) 0 var(--header-pad-bottom); }
+
+    .header-inner{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand-title{
+      font-family: var(--font-title);
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.08em;
+      line-height: 0.9;
+      text-transform: uppercase;
+      margin:0;
+      color:#111;
+    }
+
+    .brand-subtitle{
+      margin-top: var(--header-title-gap);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      line-height: 1.2;
+      margin-bottom:0;
+      color:#111;
+      text-transform: uppercase;
+      opacity: .85;
+    }
+
+    .nav{
+      display:flex;
+      gap:22px;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+      margin-left: var(--header-nav-push);
+    }
+
+    .nav-link{
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:500;
+      color:var(--muted);
+      text-decoration:none;
+    }
+
+    .nav-link:hover{ color:var(--text); }
+
+    .nav-link.is-active{
+      color:var(--text);
+      font-weight:600;
+    }
+
+    .project{
+      margin-top: var(--content-top-gap);
+      padding-left: 0;
+    }
+
+    .project-grid{
+      display:grid;
+      grid-template-columns: var(--text-col) minmax(0, 1fr);
+      gap: var(--grid-gap);
+      align-items:start;
+    }
+
+    .project-left{
+      max-width: var(--text-col);
+    }
+
+    .project-title{
+      font-family: var(--font-title);
+      font-size: 34px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin:0 0 8px 0;
+      line-height: 1.05;
+      color:#111;
+    }
+
+    .project-subtitle{
+      font-size: 14.5px;
+      font-weight: 500;
+      margin:0 0 18px 0;
+      color:#222;
+      line-height: 1.35;
+      max-width: 56ch;
+    }
+
+    .meta{
+      font-size: var(--meta-font);
+      line-height: 1.45;
+      color:#111;
+      white-space: normal;
+      margin: 0 0 var(--meta-bottom) 0;
+    }
+
+    .meta b{ font-weight: 600; }
+
+    .project-body{
+      display:block;
+    }
+
+    .block{
+      margin-bottom: var(--block-gap);
+    }
+
+    .block:last-child{
+      margin-bottom:0;
+    }
+
+    .block h3{
+      margin: var(--section-title-top) 0 var(--section-title-bottom) 0;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color:#111;
+    }
+
+    .block p{
+      margin: 0 0 var(--paragraph-gap) 0;
+      font-size: var(--body-font);
+      line-height: var(--body-leading);
+      color:#111;
+    }
+
+    .block p.section-end{
+      margin-bottom: var(--section-gap-after);
+    }
+
+    .block p:last-child{
+      margin-bottom:0;
+    }
+
+    .project-right{
+      width:100%;
+      text-align:left;
+    }
+
+    .hero-frame{
+      width:100%;
+      background: transparent;
+      overflow:visible;
+      position:relative;
+      border:0;
+      text-align:left;
+    }
+
+    .hero-frame img{
+      width:auto;
+      max-width:100%;
+      height:auto;
+      display:block;
+      position: relative;
+      object-fit:contain;
+      left:0;
+    }
+
+    .hero-fallback{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      letter-spacing:.18em;
+      color:#9a9a9a;
+      text-transform:uppercase;
+      pointer-events:none;
+    }
+
+    .project-scroll-test{
+      margin-top: 26px;
+      width: 100%;
+      text-align:left;
+    }
+
+    .scroll-image-frame{
+      width:100%;
+      background: transparent;
+      overflow:visible;
+      position:relative;
+      text-align:left;
+    }
+
+    .scroll-image-frame img{
+      width:auto;
+      max-width:100%;
+      height:auto;
+      display:block;
+      position: relative;
+      object-fit:contain;
+      left:0;
+    }
+
+    .scroll-fallback{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      letter-spacing:.18em;
+      color:#9a9a9a;
+      text-transform:uppercase;
+      pointer-events:none;
+    }
+
+    /* Fixed Footer Styling */
+    .site-footer { 
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      padding: 14px 0 26px; 
+      background: #ffffff;
+      border: 0;
+      box-shadow: none;
+      filter: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-radius: 0;
+      z-index: 2147483647;
+      pointer-events: auto;
+    }
+
+    .footer-inner{
+      display:flex;
+      justify-content:flex-end;
+    }
+
+    .footer-icons{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+    }
+
+    .icon-btn{
+      width: var(--icon-size);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      color:var(--muted);
+      text-decoration:none;
+    }
+
+    .icon-btn:hover{ color:var(--text); }
+
+    .icon-box{
+      width: var(--icon-size);
+      height: var(--icon-size);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex: 0 0 auto;
+    }
+
+    .home-square{
+      width:100%;
+      height:100%;
+      background:#111;
+      display:block;
+    }
+
+    .home-label{
+      margin-top: var(--home-label-gap);
+      font-size:9px;
+      letter-spacing:.16em;
+      text-align:center;
+      line-height: 1;
+      color: var(--muted);
+    }
+
+    .icon{
+      width: 100%;
+      height: 100%;
+      display:block;
+    }
+
+    .icon *{
+      stroke-width: var(--icon-stroke);
+      stroke: currentColor;
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .photo-reveal{
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-reveal .col{
+      pointer-events:none;
+      position:absolute;
+      top:0;
+      bottom:0;
+      z-index: 3;
+    }
+
+    .photo-reveal .col__bg{
+      pointer-events:none;
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background: var(--reveal-bg);
+    }
+
+    @media (max-width: 1100px){
+      :root{
+        --wide-pad: 28px;
+        --grid-gap: 28px;
+        --text-col: 460px;
+      }
+      .nav{ margin-left: 0; }
+    }
+
+    @media (max-width: 900px){
+      .project-grid{ grid-template-columns: 1fr; }
+      .project-left{ max-width: 680px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container-wide header-inner">
+    <div>
+      <div class="brand-title">PEDRO ORTIZ CAZAL</div>
+      <div class="brand-subtitle">Architecture Portfolio</div>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link" href="index.html">HOME</a>
+      <a class="nav-link" href="about.html">ABOUT</a>
+      <a class="nav-link is-active" href="projects.html">PROJECTS</a>
+      <a class="nav-link" href="resume.html">RESUME</a>
+      <a class="nav-link" href="press.html">PRESS</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container-wide">
+  <section class="project">
+    <div class="project-grid">
+
+      <div class="project-left">
+        <h1 class="project-title js-hero-title">CLOSE ENOUGH</h1>
+        <p class="project-subtitle js-hero-subtitle">Multi-generational Housing</p>
+
+        <div class="meta js-meta">
+          <div><b>Architect:</b> Pedro Ortiz</div>
+          <div><b>Project Category:</b> Academic, M.Arch</div>
+          <div><b>Program:</b> Multi-Generational Housing</div>
+          <div><b>Users:</b> Grandparents · Parents · Children</div>
+          <div><b>Institution:</b> Rhode Island School of Design, Providence, RI</div>
+          <div><b>Software:</b> AutoCAD, V-Ray, Rhino 8, Photoshop</div>
+          <div><b>Site Category:</b> Suburban</div>
+          <div><b>Structure Composition:</b> Reinforced concrete, brick, wood, glass</div>
+          <div><b>Façade:</b> White brick</div>
+        </div>
+
+        <div class="project-body js-body">
+
+          <div class="block">
+            <h3>Concept</h3>
+            <p>
+              Architecture can shape the way families live together. Designed for three generations, this house carefully negotiates proximity and privacy, creating a home where collective life and individual independence coexist in balance.
+            </p>
+            <p class="section-end">
+              As housing costs continue to rise, multi-generational living is re-emerging as both an economic strategy and a way for families to support one another. Designed to fit within a compact 50 × 50 ft suburban lot, the house is organized into two primary volumes: a two-level block containing shared living spaces and a second block dedicated to private areas, composed of a two-level and a three-level wing.
+            </p>
+
+            <h3>Courtyard House</h3>
+            <p>
+              All spaces are arranged around a central courtyard inspired by the Spanish patio, bringing natural light and fresh air into the house while creating a shared outdoor space that connects the family through a gradual transition from private to social life.
+            </p>
+            <p class="section-end">
+              The courtyard becomes the heart of the house, a space where light, air, and family life converge.
+            </p>
+          </div>
+
+          <div class="block">
+            <h3>Ground Level — Arrival</h3>
+            <p>
+              Entry occurs through a foyer that acts as a transitional space between the social block, the private wing, and the central courtyard. Fully glazed along its perimeter, the courtyard visually expands the interior and becomes the spatial element that ties the entire house together.
+            </p>
+
+            <h3>Private Wing</h3>
+            <p>
+              The ground level of the private wing is designed primarily for the elderly members of the family. Two suite bedrooms—one for the grandparents and one for guests or caregivers—are separated by a secondary courtyard connected to the central patio.
+            </p>
+            <p class="section-end">
+              This smaller courtyard improves natural ventilation and daylight while extending views beyond the house. Locating these rooms at ground level allows elderly residents to access the main social spaces without obstacles while remaining visually connected to daily family life.
+            </p>
+
+            <h3>Social Block</h3>
+            <p>
+              The social block unfolds sequentially along the ground level, beginning with the living room and continuing through the dining area and open kitchen. A tea room completes the sequence and reconnects the social spaces with the private wing.
+            </p>
+            <p class="section-end">
+              A central staircase leads to a family terrace above, where play, leisure, and outdoor gatherings extend the social life of the house.
+            </p>
+          </div>
+
+          <div class="block">
+            <h3>Upper Levels</h3>
+            <p>
+              Two independent staircases located beside the ground-level suites lead to the upper levels of the private wing. One stair leads to the children’s bedroom, while the other connects to an intermediate level containing the parents’ studio or home office.
+            </p>
+            <p class="section-end">
+              The parents’ suite occupies the third level, completing the vertical organization of the private block. Careful placement of windows ensures that none of the private rooms face directly into one another, maintaining privacy while allowing generous natural light and ventilation.
+            </p>
+
+            <h3>Courtyard System</h3>
+            <p>
+              Two interconnected courtyards structure the environmental and spatial organization of the house. The central courtyard acts as the main social heart, bringing light, air, and visual continuity to the surrounding spaces.
+            </p>
+            <p>
+              The secondary courtyard, located between the ground-level suites, improves cross-ventilation and extends views toward the exterior.
+            </p>
+            <p>
+              Together, these patios create a system that enhances environmental comfort while reinforcing the spatial relationship between private and collective areas of the house.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="project-right">
+        <div class="hero-frame photo-reveal js-hero-photo">
+          <img
+            src="img/projects/project 2/c-01.png"
+            alt="Close Enough — hero image"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="hero-fallback" style="display:none;">HERO IMAGE</div>
+        </div>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 2/c-02.png"
+              alt="Close Enough — image 2"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 2/c-03.png"
+              alt="Close Enough — image 3"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 2/c-04.png"
+              alt="Close Enough — image 4"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 2/c-05.png"
+              alt="Close Enough — image 5"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 2/c-06.png"
+              alt="Close Enough — image 6"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 2/c-07.png"
+              alt="Close Enough — image 7"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container-wide footer-inner">
+    <div class="footer-icons">
+      <a class="icon-btn" href="index.html">
+        <span class="icon-box"><span class="home-square"></span></span>
+        <span class="home-label">HOME</span>
+      </a>
+
+      <a class="icon-btn" href="https://instagram.com/peortizc" target="_blank" rel="noopener">
+        <span class="icon-box">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="5" y="5" width="14" height="14" rx="3"/>
+            <circle cx="12" cy="12" r="3.5"/>
+          </svg>
+        </span>
+      </a>
+
+      <a class="icon-btn" href="mailto:portizca@risd.edu">
+        <span class="icon-box">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 7h16v10H4z"/>
+            <path d="M4 7l8 6 8-6"/>
+          </svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<script>
+  const columnWidth = 30;
+
+  const createColumns = (el) => {
+    if (!el) return;
+    if (el.querySelector(".col")) return;
+
+    const rect = el.getBoundingClientRect();
+    const columns = Math.ceil(rect.width / columnWidth);
+
+    el.style.position = el.style.position || "relative";
+
+    for (let i = 0; i < columns; i++) {
+      const col = document.createElement("div");
+      const colBg = document.createElement("div");
+      col.classList.add("col");
+      colBg.classList.add("col__bg");
+      col.appendChild(colBg);
+      el.appendChild(col);
+
+      gsap.set(col, { width: columnWidth, left: i * columnWidth });
+    }
+  };
+
+  const revealPhoto = (frameEl, imgEl, opts = {}) => {
+    const cols = frameEl.querySelectorAll(".col__bg");
+    const tl = gsap.timeline({ paused: true });
+
+    tl.to(cols, {
+      width: 0,
+      duration: opts.revealDuration ?? 1,
+      ease: opts.easeReveal ?? "power2.out",
+      stagger: opts.stagger ?? 0,
+    }, 0);
+
+    if (imgEl) {
+      tl.to(imgEl, {
+        top: opts.imgTop ?? "0%",
+        duration: opts.imgDuration ?? 1.25,
+        ease: opts.easeMove ?? "power2.out",
+      }, opts.imgDelay ?? 0.1);
+    }
+
+    return tl;
+  };
+
+  const fadeUp = (targets, opts = {}) => {
+    return gsap.fromTo(
+      targets,
+      { autoAlpha: 0, y: opts.fromY ?? 28 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: opts.duration ?? 0.85,
+        ease: opts.ease ?? "power2.out",
+        stagger: opts.stagger ?? 0.06
+      }
+    );
+  };
+
+  const splitLinesIfAvailable = (el) => {
+    if (!el) return [el];
+    if (typeof SplitText === "undefined") return [el];
+    try { return new SplitText(el, { type: "lines" }).lines; }
+    catch (e) { return [el]; }
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!window.gsap) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const heroPhotoFrame = document.querySelector(".js-hero-photo");
+    const heroPhotoImg = heroPhotoFrame?.querySelector("img");
+
+    const heroTitle = document.querySelector(".js-hero-title");
+    const heroSubtitle = document.querySelector(".js-hero-subtitle");
+    const meta = document.querySelector(".js-meta");
+
+    const bodyText = document.querySelectorAll(".js-body p, .js-body h3");
+
+    if (heroPhotoFrame) {
+      createColumns(heroPhotoFrame);
+
+      const heroTl = revealPhoto(heroPhotoFrame, heroPhotoImg, {
+        imgTop: "0%",
+        revealDuration: 1,
+        imgDuration: 1.35,
+        stagger: 0
+      });
+
+      const titleLines = splitLinesIfAvailable(heroTitle);
+      const subtitleLines = splitLinesIfAvailable(heroSubtitle);
+
+      gsap.set([titleLines, subtitleLines], { autoAlpha: 0, y: 36 });
+
+      heroTl
+        .to(subtitleLines, { autoAlpha: 1, y: 0, duration: 0.8, ease: "power2.out" }, 0.15)
+        .to(titleLines, { autoAlpha: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.06 }, 0.2);
+
+      window.addEventListener("load", () => heroTl.play());
+    }
+
+    if (meta) {
+      const metaItems = meta.querySelectorAll("div");
+      gsap.set(metaItems, { autoAlpha: 0, y: 22 });
+
+      ScrollTrigger.create({
+        trigger: meta,
+        start: "top 85%",
+        onEnter: () => fadeUp(metaItems, { fromY: 22, duration: 0.75, stagger: 0.04 }),
+        once: true
+      });
+    }
+
+    if (bodyText.length) {
+      gsap.set(bodyText, { autoAlpha: 0, y: 22 });
+
+      ScrollTrigger.create({
+        trigger: ".js-body",
+        start: "top 85%",
+        onEnter: () => fadeUp(bodyText, { fromY: 22, duration: 0.75, stagger: 0.03 }),
+        once: true
+      });
+    }
+
+    const scrollTests = document.querySelectorAll(".js-scroll-test");
+    scrollTests.forEach((section) => {
+      const frame = section.querySelector(".js-scroll-photo");
+      const img = frame?.querySelector("img");
+      if (!frame) return;
+
+      createColumns(frame);
+
+      const tl = revealPhoto(frame, img, {
+        imgTop: "0%",
+        revealDuration: 1,
+        imgDuration: 1.35,
+      });
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 85%",
+        onEnter: () => tl.play(),
+        once: true
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
