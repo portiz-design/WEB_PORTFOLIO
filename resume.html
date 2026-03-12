@@ -19,7 +19,7 @@
       --wide-max: 1600px;
       --wide-pad: 64px;
 
-      --thumb-gap: 26px;
+      --thumb-gap: 42px;
 
       --font-title: "Space Grotesk", system-ui, sans-serif;
       --font-ui: "Kumbh Sans", system-ui, sans-serif;
@@ -36,9 +36,8 @@
       --page-top-gap: 66px;
 
       /* resume layout */
-      --resume-hero-w: 65%;
-      --resume-max-text: 64ch;
-      --small: 12px;
+      --resume-hero-w: 78%;
+      --resume-max-text: 72ch;
 
       --press-align-inset: 12px;
       --section-gap: 20px;
@@ -123,16 +122,16 @@
 
     .resume-section{
       margin-top: var(--page-top-gap);
-      margin-bottom: 40px;
+      margin-bottom: 56px;
     }
 
     .resume-grid{
       display:grid;
-      grid-template-columns: 0.9fr 1.1fr;
+      grid-template-columns: 1fr 1.12fr;
       gap: var(--thumb-gap);
       align-items:start;
-      padding-left:22px;
-      max-width: 1100px;
+      padding-left: 0;
+      max-width: 1260px;
       margin: 0 auto;
     }
 
@@ -141,7 +140,6 @@
       justify-self:end;
       align-self:start;
       display:block;
-      margin-top: 0;
       position: sticky;
       top: 32px;
     }
@@ -162,27 +160,28 @@
 
     .resume-card h1{
       font-family: var(--font-title);
-      font-size: 28px;
+      font-size: 34px;
       font-weight: 500;
       letter-spacing: -.05em;
-      line-height: 1;
-      margin:0 0 10px 0;
+      line-height: 0.98;
+      margin:0 0 12px 0;
       text-transform: uppercase;
     }
 
     .resume-topline{
-      font-size: 13px;
-      letter-spacing: .16em;
+      font-size: 14px;
+      letter-spacing: .15em;
       text-transform: uppercase;
       color:#222;
-      margin: 0 0 18px 0;
+      margin: 0 0 22px 0;
+      line-height: 1.5;
     }
 
     .resume-meta{
-      font-size: 14px;
-      line-height: 1.72;
+      font-size: 16px;
+      line-height: 1.8;
       color:#111;
-      margin:0 0 18px 0;
+      margin:0 0 20px 0;
     }
 
     .resume-meta a{
@@ -197,21 +196,21 @@
     }
 
     .resume-profile{
-      font-size: 13.5px;
-      line-height: 1.68;
+      font-size: 15.5px;
+      line-height: 1.82;
       color:#222;
-      margin: 0 0 22px 0;
-      max-width: 60ch;
+      margin: 0 0 28px 0;
+      max-width: 62ch;
     }
 
     .resume-block{
-      margin-top: 20px;
-      padding-top: 20px;
+      margin-top: 28px;
+      padding-top: 22px;
       border-top: 1px solid #ededed;
     }
 
     .resume-block h2{
-      margin:0 0 13px 0;
+      margin:0 0 16px 0;
       font-size: 13px;
       font-weight:600;
       letter-spacing:.18em;
@@ -219,23 +218,23 @@
       color:#111;
     }
 
-    .resume-item{ margin: 0 0 16px 0; }
+    .resume-item{ margin: 0 0 20px 0; }
 
     .resume-item .row{
       display:flex;
       justify-content:space-between;
-      gap: 14px;
+      gap: 18px;
       align-items:baseline;
     }
 
     .resume-item .title{
-      font-size: 14.25px;
-      line-height: 1.45;
+      font-size: 16px;
+      line-height: 1.5;
       color:#111;
     }
 
     .resume-item .when{
-      font-size: 12px;
+      font-size: 12.5px;
       letter-spacing: .08em;
       text-transform: uppercase;
       color:#555;
@@ -243,24 +242,28 @@
     }
 
     .resume-item .sub{
-      margin-top: 5px;
-      font-size: 13px;
-      line-height: 1.62;
+      margin-top: 6px;
+      font-size: 14.5px;
+      line-height: 1.78;
       color:#333;
     }
 
     .resume-list{
-      margin: 8px 0 0 0;
-      padding-left: 18px;
+      margin: 10px 0 0 0;
+      padding-left: 20px;
       color:#333;
-      font-size: 13px;
-      line-height: 1.62;
+      font-size: 14.5px;
+      line-height: 1.75;
+    }
+
+    .resume-list li{
+      margin-bottom: 4px;
     }
 
     .resume-split{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      gap: 26px;
       align-items:start;
     }
 
@@ -269,8 +272,8 @@
     }
 
     .mini-block h3{
-      margin:0 0 8px 0;
-      font-size: 11px;
+      margin:0 0 10px 0;
+      font-size: 11.5px;
       font-weight:600;
       letter-spacing:.18em;
       text-transform: uppercase;
@@ -280,14 +283,14 @@
     .tag-list{
       display:flex;
       flex-wrap:wrap;
-      gap:8px 10px;
-      margin-top: 8px;
+      gap:10px 10px;
+      margin-top: 10px;
     }
 
     .tag{
-      font-size: 11.75px;
+      font-size: 12.5px;
       line-height: 1;
-      padding: 8px 10px;
+      padding: 9px 11px;
       border:1px solid #e7e7e7;
       border-radius:999px;
       color:#222;
@@ -299,7 +302,7 @@
       align-items:center;
       justify-content:center;
       margin-left: 8px;
-      padding: 3px 10px 2px;
+      padding: 4px 10px 3px;
       border: 1px solid #e3e3e3;
       border-radius: 999px;
       text-decoration:none;
@@ -317,7 +320,7 @@
     }
 
     .resume-actions{
-      margin-top: 18px;
+      margin-top: 22px;
       display:flex;
       gap: 12px;
       flex-wrap:wrap;
@@ -327,8 +330,8 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      height: 34px;
-      padding: 0 14px;
+      height: 38px;
+      padding: 0 16px;
       border: 1px solid #e3e3e3;
       background: rgba(255,255,255,.86);
       color:#111;
@@ -343,22 +346,6 @@
     .btn:hover{
       background: rgba(255,255,255,.98);
       border-color:#d9d9d9;
-    }
-
-    .pdf-frame{
-      width: var(--resume-hero-w);
-      aspect-ratio: 4 / 5;
-      background:#f2f2f2;
-      border:1px solid #e3e3e3;
-      overflow:hidden;
-      margin-left:auto;
-    }
-
-    .pdf-frame iframe{
-      width:100%;
-      height:100%;
-      border:0;
-      display:block;
     }
 
     /* ================= FOOTER ================= */
@@ -421,7 +408,11 @@
 
     /* ================= RESPONSIVE ================= */
     @media (max-width: 1000px){
-      :root{ --wide-pad: 28px; }
+      :root{
+        --wide-pad: 28px;
+        --resume-hero-w: 100%;
+      }
+
       .nav{ margin-left: 0; }
 
       .resume-grid{
@@ -430,19 +421,23 @@
         width:auto;
         margin:0;
         padding-left:0;
+        gap: 28px;
       }
 
       .resume-hero{
         position: static;
         justify-self:start;
+        width: 100%;
       }
 
-      .resume-hero img, .pdf-frame{
-        width: min(520px, 100%);
+      .resume-hero img{
+        width: min(560px, 100%);
         margin-left: 0;
       }
 
-      .resume-card{ max-width: 70ch; }
+      .resume-card{
+        max-width: 100%;
+      }
 
       .resume-split{
         grid-template-columns: 1fr;
@@ -497,8 +492,7 @@
         </p>
 
         <div class="resume-actions">
-          <a class="btn" href="resume/CV2026.pdf" target="_blank" rel="noopener">See PDF</a>
-          <a class="btn" href="resume/CV2026.pdf" download>Download PDF</a>
+          <a class="btn" href="resume/CV2026.pdf" download="Pedro_Ortiz_Cazal_Resume.pdf">Download PDF</a>
         </div>
 
         <div class="resume-block">
