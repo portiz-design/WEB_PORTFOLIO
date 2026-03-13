@@ -301,6 +301,7 @@ position:absolute;
 top:0;
 bottom:0;
 z-index:3;
+pointer-events:none;
 }
 .photo-reveal .col__bg{
 position:absolute;
@@ -309,6 +310,7 @@ left:0;
 width:100%;
 height:100%;
 background:var(--reveal-bg);
+pointer-events:none;
 }
 
 @media (max-width:1100px){
@@ -448,60 +450,100 @@ An elevated botanical garden restoring part of the meadow landscape and reconnec
 <div class="project-right">
 
 <div class="hero-frame photo-reveal js-hero-photo">
-<img src="img/projects/project 7/b-01.webp">
+<img
+src="img/projects/project 7/b-01.webp"
+decoding="async"
+fetchpriority="high"
+alt="New Museum of Natural & Indigenous History — hero image">
 </div>
 
-<section class="project-scroll-test">
-<div class="scroll-image-frame photo-reveal">
-<img src="img/projects/project 7/b-02.webp">
-</div>
-</section>
-
-<section class="project-scroll-test">
-<div class="scroll-image-frame photo-reveal">
-<img src="img/projects/project 7/b-03.webp">
-</div>
-</section>
-
-<section class="project-scroll-test">
-<div class="scroll-image-frame photo-reveal">
-<img src="img/projects/project 7/b-04.webp">
+<section class="project-scroll-test js-scroll-test">
+<div class="scroll-image-frame photo-reveal js-scroll-photo">
+<img
+src="img/projects/project 7/b-02.webp"
+loading="lazy"
+decoding="async"
+alt="New Museum of Natural & Indigenous History — image 2">
 </div>
 </section>
 
-<section class="project-scroll-test">
-<div class="scroll-image-frame photo-reveal">
-<img src="img/projects/project 7/b-05.webp">
+<section class="project-scroll-test js-scroll-test">
+<div class="scroll-image-frame photo-reveal js-scroll-photo">
+<img
+src="img/projects/project 7/b-03.webp"
+loading="lazy"
+decoding="async"
+alt="New Museum of Natural & Indigenous History — image 3">
 </div>
 </section>
 
-<section class="project-scroll-test">
-<div class="scroll-image-frame photo-reveal">
-<img src="img/projects/project 7/b-06.webp">
+<section class="project-scroll-test js-scroll-test">
+<div class="scroll-image-frame photo-reveal js-scroll-photo">
+<img
+src="img/projects/project 7/b-04.webp"
+loading="lazy"
+decoding="async"
+alt="New Museum of Natural & Indigenous History — image 4">
 </div>
 </section>
 
-<section class="project-scroll-test">
-<div class="scroll-image-frame photo-reveal">
-<img src="img/projects/project 7/b-07.webp">
+<section class="project-scroll-test js-scroll-test">
+<div class="scroll-image-frame photo-reveal js-scroll-photo">
+<img
+src="img/projects/project 7/b-05.webp"
+loading="lazy"
+decoding="async"
+alt="New Museum of Natural & Indigenous History — image 5">
 </div>
 </section>
 
-<section class="project-scroll-test">
-<div class="scroll-image-frame photo-reveal">
-<img src="img/projects/project 7/b-08.webp">
+<section class="project-scroll-test js-scroll-test">
+<div class="scroll-image-frame photo-reveal js-scroll-photo">
+<img
+src="img/projects/project 7/b-06.webp"
+loading="lazy"
+decoding="async"
+alt="New Museum of Natural & Indigenous History — image 6">
 </div>
 </section>
 
-<section class="project-scroll-test wide-right">
-<div class="scroll-image-frame photo-reveal">
-<img src="img/projects/project 7/b-09.webp">
+<section class="project-scroll-test js-scroll-test">
+<div class="scroll-image-frame photo-reveal js-scroll-photo">
+<img
+src="img/projects/project 7/b-07.webp"
+loading="lazy"
+decoding="async"
+alt="New Museum of Natural & Indigenous History — image 7">
 </div>
 </section>
 
-<section class="project-scroll-test wide-right">
-<div class="scroll-image-frame photo-reveal">
-<img src="img/projects/project 7/b-10.webp">
+<section class="project-scroll-test js-scroll-test">
+<div class="scroll-image-frame photo-reveal js-scroll-photo">
+<img
+src="img/projects/project 7/b-08.webp"
+loading="lazy"
+decoding="async"
+alt="New Museum of Natural & Indigenous History — image 8">
+</div>
+</section>
+
+<section class="project-scroll-test wide-right js-scroll-test">
+<div class="scroll-image-frame photo-reveal js-scroll-photo">
+<img
+src="img/projects/project 7/b-09.webp"
+loading="lazy"
+decoding="async"
+alt="New Museum of Natural & Indigenous History — image 9">
+</div>
+</section>
+
+<section class="project-scroll-test wide-right js-scroll-test">
+<div class="scroll-image-frame photo-reveal js-scroll-photo">
+<img
+src="img/projects/project 7/b-10.webp"
+loading="lazy"
+decoding="async"
+alt="New Museum of Natural & Indigenous History — image 10">
 </div>
 </section>
 
@@ -545,6 +587,158 @@ An elevated botanical garden restoring part of the meadow landscape and reconnec
 
 <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<script>
+const columnWidth = 30;
+
+const createColumns = (el) => {
+  if (!el) return;
+  if (el.querySelector(".col")) return;
+
+  const rect = el.getBoundingClientRect();
+  const columns = Math.ceil(rect.width / columnWidth);
+
+  if (!el.style.position) el.style.position = "relative";
+
+  for (let i = 0; i < columns; i++) {
+    const col = document.createElement("div");
+    const colBg = document.createElement("div");
+    col.classList.add("col");
+    colBg.classList.add("col__bg");
+    col.appendChild(colBg);
+    el.appendChild(col);
+
+    gsap.set(col, { width: columnWidth, left: i * columnWidth });
+  }
+};
+
+const revealPhoto = (frameEl, imgEl, opts = {}) => {
+  const cols = frameEl.querySelectorAll(".col__bg");
+  const tl = gsap.timeline({ paused: true });
+
+  tl.to(cols, {
+    width: 0,
+    duration: opts.revealDuration ?? 1,
+    ease: opts.easeReveal ?? "power2.out",
+    stagger: opts.stagger ?? 0,
+  }, 0);
+
+  if (imgEl) {
+    tl.to(imgEl, {
+      top: opts.imgTop ?? "0%",
+      duration: opts.imgDuration ?? 1.25,
+      ease: opts.easeMove ?? "power2.out",
+    }, opts.imgDelay ?? 0.1);
+  }
+
+  return tl;
+};
+
+const fadeUp = (targets, opts = {}) => {
+  return gsap.fromTo(
+    targets,
+    { autoAlpha: 0, y: opts.fromY ?? 28 },
+    {
+      autoAlpha: 1,
+      y: 0,
+      duration: opts.duration ?? 0.85,
+      ease: opts.ease ?? "power2.out",
+      stagger: opts.stagger ?? 0.06
+    }
+  );
+};
+
+const splitLinesIfAvailable = (el) => {
+  if (!el) return [el];
+  if (typeof SplitText === "undefined") return [el];
+  try {
+    return new SplitText(el, { type: "lines" }).lines;
+  } catch (e) {
+    return [el];
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (!window.gsap) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  const heroPhotoFrame = document.querySelector(".js-hero-photo");
+  const heroPhotoImg = heroPhotoFrame?.querySelector("img");
+
+  const heroTitle = document.querySelector(".js-hero-title");
+  const heroSubtitle = document.querySelector(".js-hero-subtitle");
+  const meta = document.querySelector(".js-meta");
+
+  const bodyText = document.querySelectorAll(".js-body p, .js-body h3");
+
+  if (heroPhotoFrame) {
+    createColumns(heroPhotoFrame);
+
+    const heroTl = revealPhoto(heroPhotoFrame, heroPhotoImg, {
+      imgTop: "0%",
+      revealDuration: 1,
+      imgDuration: 1.35,
+      stagger: 0
+    });
+
+    const titleLines = splitLinesIfAvailable(heroTitle);
+    const subtitleLines = splitLinesIfAvailable(heroSubtitle);
+
+    gsap.set([titleLines, subtitleLines], { autoAlpha: 0, y: 36 });
+
+    heroTl
+      .to(subtitleLines, { autoAlpha: 1, y: 0, duration: 0.8, ease: "power2.out" }, 0.15)
+      .to(titleLines, { autoAlpha: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.06 }, 0.2);
+
+    requestAnimationFrame(() => heroTl.play());
+  }
+
+  if (meta) {
+    const metaItems = meta.querySelectorAll("div");
+    gsap.set(metaItems, { autoAlpha: 0, y: 22 });
+
+    ScrollTrigger.create({
+      trigger: meta,
+      start: "top 85%",
+      onEnter: () => fadeUp(metaItems, { fromY: 22, duration: 0.75, stagger: 0.04 }),
+      once: true
+    });
+  }
+
+  if (bodyText.length) {
+    gsap.set(bodyText, { autoAlpha: 0, y: 22 });
+
+    ScrollTrigger.create({
+      trigger: ".js-body",
+      start: "top 85%",
+      onEnter: () => fadeUp(bodyText, { fromY: 22, duration: 0.75, stagger: 0.03 }),
+      once: true
+    });
+  }
+
+  const scrollTests = document.querySelectorAll(".js-scroll-test");
+  scrollTests.forEach((section) => {
+    const frame = section.querySelector(".js-scroll-photo");
+    const img = frame?.querySelector("img");
+    if (!frame) return;
+
+    createColumns(frame);
+
+    const tl = revealPhoto(frame, img, {
+      imgTop: "0%",
+      revealDuration: 1,
+      imgDuration: 1.35,
+    });
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top 85%",
+      onEnter: () => tl.play(),
+      once: true
+    });
+  });
+});
+</script>
 
 </body>
 </html>
