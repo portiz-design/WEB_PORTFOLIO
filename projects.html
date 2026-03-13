@@ -8,7 +8,10 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Kumbh+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Kumbh+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
     :root{
@@ -45,9 +48,14 @@
       display:flex;
       flex-direction:column;
       cursor:url("cursor-black.svg") 2 2, auto;
+      text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    *{ cursor:url("cursor-black.svg") 2 2, auto !important; }
+    a, button{
+      cursor:url("cursor-black.svg") 2 2, auto;
+    }
 
     main{ flex:1 }
 
@@ -127,6 +135,10 @@
       text-decoration:none;
       color:inherit;
       position:relative;
+
+      /* helps browser skip offscreen rendering work */
+      content-visibility:auto;
+      contain-intrinsic-size: 320px 240px;
     }
 
     .project-tile img{
@@ -134,12 +146,12 @@
       height:100%;
       object-fit:cover;
       display:block;
-      transition: transform .18s ease;
-      will-change: transform;
+      transition:transform .18s ease;
+      transform:translateZ(0);
     }
 
     .project-tile:hover img{
-      transform: translateY(-1px);
+      transform:translateY(-1px);
     }
 
     /* ===== Hover label ===== */
@@ -153,13 +165,13 @@
       text-transform:uppercase;
       color:#f5f5f5;
 
-      background: rgba(0,0,0,.35);
+      background:rgba(0,0,0,.35);
       padding:4px 6px;
       line-height:1;
 
       pointer-events:none;
       opacity:0;
-      transition: opacity .18s ease;
+      transition:opacity .18s ease;
       z-index:2;
     }
 
@@ -202,24 +214,24 @@
     }
 
     .icon *{
-      stroke-width: var(--icon-stroke);
-      stroke: currentColor;
+      stroke-width:var(--icon-stroke);
+      stroke:currentColor;
       fill:none;
       stroke-linecap:round;
       stroke-linejoin:round;
     }
 
     .home-square{
-      width: var(--icon-size);
-      height: var(--icon-size);
+      width:var(--icon-size);
+      height:var(--icon-size);
       background:#111;
     }
 
     .home-square-btn .home-label{
       position:absolute;
-      top: calc(100% + var(--home-label-gap));
-      left: 50%;
-      transform: translateX(-50%);
+      top:calc(100% + var(--home-label-gap));
+      left:50%;
+      transform:translateX(-50%);
       font-size:9px;
       letter-spacing:.16em;
       pointer-events:none;
@@ -248,59 +260,59 @@
 
 <main class="container-wide">
   <section class="projects-section">
-   <div class="projects-grid">
+    <div class="projects-grid">
 
-  <a class="project-tile" href="project-01.html">
-    <span class="project-label">Institutional: Cultural Center</span>
-    <img src="img/g-01.webp" alt="">
-  </a>
+      <a class="project-tile" href="project-01.html">
+        <span class="project-label">Institutional: Cultural Center</span>
+        <img src="img/g-01.webp" alt="" fetchpriority="high" decoding="async">
+      </a>
 
-  <a class="project-tile" href="project-02.html">
-    <span class="project-label">Residential: Multi Generational House</span>
-    <img src="img/c-01.webp" alt="">
-  </a>
+      <a class="project-tile" href="project-02.html">
+        <span class="project-label">Residential: Multi Generational House</span>
+        <img src="img/c-01.webp" alt="" fetchpriority="high" decoding="async">
+      </a>
 
-  <a class="project-tile" href="project-03.html">
-    <span class="project-label">Residential: Pre-Fab House for Climate Change</span>
-    <img src="img/b-01.webp" alt="">
-  </a>
+      <a class="project-tile" href="project-03.html">
+        <span class="project-label">Residential: Pre-Fab House for Climate Change</span>
+        <img src="img/b-01.webp" alt="" fetchpriority="high" decoding="async">
+      </a>
 
-  <a class="project-tile" href="project-04.html">
-    <span class="project-label">Model Making: Representation & Allegory</span>
-    <img src="img/m-02.webp" alt="">
-  </a>
+      <a class="project-tile" href="project-04.html">
+        <span class="project-label">Model Making: Representation & Allegory</span>
+        <img src="img/m-02.webp" alt="" loading="lazy" decoding="async">
+      </a>
 
-  <a class="project-tile" href="project-05.html">
-    <span class="project-label">Graphic Design: Poster & Concept development</span>
-    <img src="img/p-02.webp" alt="">
-  </a>
+      <a class="project-tile" href="project-05.html">
+        <span class="project-label">Graphic Design: Poster & Concept development</span>
+        <img src="img/p-02.webp" alt="" loading="lazy" decoding="async">
+      </a>
 
-  <a class="project-tile" href="project-06.html">
-    <span class="project-label">Exhibition Design: MFA Thesis Exhibition at The Manetti Shrem</span>
-    <img src="img/e-01.webp" alt="">
-  </a>
+      <a class="project-tile" href="project-06.html">
+        <span class="project-label">Exhibition Design: MFA Thesis Exhibition at The Manetti Shrem</span>
+        <img src="img/e-01.webp" alt="" loading="lazy" decoding="async">
+      </a>
 
-  <a class="project-tile" href="project-07.html">
-    <span class="project-label">Institutional: Museum of Natural History</span>
-    <img src="img/b-05.webp" alt="">
-  </a>
+      <a class="project-tile" href="project-07.html">
+        <span class="project-label">Institutional: Museum of Natural History</span>
+        <img src="img/b-05.webp" alt="" loading="lazy" decoding="async">
+      </a>
 
-  <a class="project-tile" href="project-08.html">
-    <span class="project-label">Furniture Design: Architectural Chair</span>
-    <img src="img/ch-01.webp" alt="">
-  </a>
+      <a class="project-tile" href="project-08.html">
+        <span class="project-label">Furniture Design: Architectural Chair</span>
+        <img src="img/ch-01.webp" alt="" loading="lazy" decoding="async">
+      </a>
 
-  <a class="project-tile" href="project-09.html">
-    <span class="project-label">Product Design: Jewelry</span>
-    <img src="img/r-02.webp" alt="">
-  </a>
+      <a class="project-tile" href="project-09.html">
+        <span class="project-label">Product Design: Jewelry</span>
+        <img src="img/r-02.webp" alt="" loading="lazy" decoding="async">
+      </a>
 
-  <a class="project-tile" href="project-10.html">
-    <span class="project-label">Infraestructure: Light Rail Terminal</span>
-    <img src="img/t-01.webp" alt="">
-  </a>
+      <a class="project-tile" href="project-10.html">
+        <span class="project-label">Infraestructure: Light Rail Terminal</span>
+        <img src="img/t-01.webp" alt="" loading="lazy" decoding="async">
+      </a>
 
-</div>
+    </div>
   </section>
 </main>
 
@@ -313,14 +325,14 @@
       </a>
 
       <a class="icon-btn" href="https://instagram.com/peortizc" target="_blank" rel="noopener">
-        <svg class="icon" viewBox="0 0 24 24">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
           <rect x="5" y="5" width="14" height="14" rx="3"/>
           <circle cx="12" cy="12" r="3.5"/>
         </svg>
       </a>
 
       <a class="icon-btn" href="mailto:portizca@risd.edu">
-        <svg class="icon" viewBox="0 0 24 24">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M4 7h16v10H4z"/>
           <path d="M4 7l8 6 8-6"/>
         </svg>

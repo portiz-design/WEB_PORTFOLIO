@@ -30,7 +30,6 @@
 
       --home-label-gap: 4px;
 
-   
       --press-align-inset: 12px;
 
       --viewer-h: 520px;
@@ -48,9 +47,9 @@
         (var(--viewer-h) - ((var(--thumb-rows) - 1) * var(--thumb-gap)))
         / var(--thumb-rows)
       );
-      --thumb-w: calc(var(--thumb-h) * (4 / 3)); /* matches --thumb-ratio (4:3) */
+      --thumb-w: calc(var(--thumb-h) * (4 / 3));
 
-      /* ===== editorial whitespace + subtle UI tuning (reference-like) ===== */
+      /* ===== editorial whitespace + subtle UI tuning ===== */
       --header-pad-top: 56px;
       --header-pad-bottom: 28px;
       --header-title-gap: 4px;
@@ -65,29 +64,30 @@
       --dot-gap: 8px;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
 
     body{
-      cursor: url("cursor-black.svg") 2 2, auto;
-
       margin:0;
       background:var(--bg);
       color:var(--text);
       font-family: var(--font-ui);
-
-      /* sticky footer behavior */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      cursor: url("cursor-black.svg") 2 2, auto;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Keep the custom black cursor EVERYWHERE (no hand cursor) */
-    *{
-      cursor: url("cursor-black.svg") 2 2, auto !important;
+    /* keep custom cursor without forcing universal !important */
+    a,
+    button{
+      cursor: url("cursor-black.svg") 2 2, auto;
     }
 
-    /* ✅ ONLY REQUESTED FIX: prevent I-beam/text selection on titles & images/links */
+    /* prevent I-beam/text selection on titles & gallery UI */
     .brand-title,
     .brand-subtitle,
     .nav,
@@ -101,7 +101,7 @@
       -ms-user-select: none;
     }
 
-    main{ flex: 1; } /* makes footer stay visible on short pages */
+    main{ flex:1; }
 
     .container-wide{
       max-width: var(--wide-max);
@@ -110,7 +110,9 @@
     }
 
     /* ================= HEADER ================= */
-    .site-header{ padding: var(--header-pad-top) 0 var(--header-pad-bottom); }
+    .site-header{
+      padding: var(--header-pad-top) 0 var(--header-pad-bottom);
+    }
 
     .header-inner{
       display:flex;
@@ -149,39 +151,32 @@
     }
 
     .nav-link{
-  font-size:12px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  font-weight:500;
-  color:#666;             
-  text-decoration:none;
-  transition: color .15s ease;
-}
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:500;
+      color:#666;
+      text-decoration:none;
+      transition: color .15s ease;
+    }
 
-.nav-link:hover{
-  color: var(--text);
-}
+    .nav-link:hover{
+      color: var(--text);
+    }
 
-.nav-link.is-active{
-  color: var(--text);     
-  font-weight:600;
-}
-
+    .nav-link.is-active{
+      color: var(--text);
+      font-weight:600;
+    }
 
     /* ================= GALLERY ================= */
     .gallery{
       margin: var(--gallery-top-gap) 0 40px;
-
       display: grid;
       grid-template-columns: var(--hero-col) max-content;
-
-    
       gap: var(--thumb-gap);
-
       align-items: start;
-
       justify-content: start;
-      will-change: transform;
     }
 
     .viewer{
@@ -194,10 +189,7 @@
 
     .viewer-wrap{
       width:100%;
-
- 
       padding: var(--hero-frame-pad-y) 0 var(--hero-frame-pad-y) var(--hero-frame-pad-x);
-
       background: transparent;
     }
 
@@ -205,24 +197,19 @@
       position:relative;
       width:100%;
       height:var(--viewer-h);
-
- 
       background: transparent;
       border: none;
-
       overflow:hidden;
       display:flex;
       align-items:center;
       justify-content:center;
     }
 
-  
     .viewer-track{
       width:100%;
       height:100%;
       display:flex;
       transform: translateX(0%);
-      will-change: transform;
       transition: transform 520ms cubic-bezier(.22,.61,.36,1);
     }
 
@@ -246,18 +233,18 @@
     }
 
     .viewer-placeholder{
-position:absolute;
-inset:0;
-display:none; 
-align-items:center;
-justify-content:center;
-font-size:12px;
-letter-spacing:.18em;
-color:#9a9a9a;
-text-transform:uppercase;
-pointer-events:none;
-z-index:2;
-}
+      position:absolute;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      letter-spacing:.18em;
+      color:#9a9a9a;
+      text-transform:uppercase;
+      pointer-events:none;
+      z-index:2;
+    }
 
     .viewer-arrow{
       position:absolute;
@@ -271,13 +258,14 @@ z-index:2;
       display:flex;
       align-items:center;
       justify-content:center;
-      cursor:pointer;
       padding:0;
       z-index:3;
       backdrop-filter: blur(2px);
     }
 
-    .viewer-arrow:hover{ background:rgba(255,255,255,.96); }
+    .viewer-arrow:hover{
+      background:rgba(255,255,255,.96);
+    }
 
     .viewer-arrow.is-prev{ left: calc(-1 * var(--hero-arrow-outset)); }
     .viewer-arrow.is-next{ right: calc(-1 * var(--hero-arrow-outset)); }
@@ -306,7 +294,6 @@ z-index:2;
       border-radius:999px;
       background:#e0e0e0;
       border:none;
-      cursor:pointer;
       padding:0;
     }
 
@@ -316,28 +303,24 @@ z-index:2;
       grid-column: 2;
       justify-self: end;
       height: var(--viewer-h);
-
       display: grid;
       grid-template-columns: repeat(3, var(--thumb-w));
       grid-template-rows: repeat(var(--thumb-rows), var(--thumb-h));
       gap: var(--thumb-gap);
       align-content: stretch;
-
       margin-top: 0;
+      content-visibility: auto;
+      contain-intrinsic-size: 420px 520px;
     }
 
     .thumb{
       border:none;
       background:none;
       padding:0;
-      cursor:pointer;
-
       width: var(--thumb-w);
       height: var(--thumb-h);
       overflow:hidden;
       line-height:0;
-
-
       outline: 0 solid transparent;
       outline-offset: 2px;
     }
@@ -347,10 +330,10 @@ z-index:2;
       height:100%;
       object-fit: cover;
       display:block;
-
       opacity: .88;
       filter: grayscale(1) saturate(.9) contrast(.98);
       transition: opacity .18s ease, filter .18s ease, transform .18s ease;
+      transform: translateZ(0);
     }
 
     .thumb:hover img{
@@ -360,7 +343,7 @@ z-index:2;
     }
 
     .thumb.is-selected{
-      outline: 1.5px solid #111; 
+      outline: 1.5px solid #111;
     }
 
     .thumb.is-selected img{
@@ -437,12 +420,12 @@ z-index:2;
     </div>
 
     <nav class="nav">
-<a class="nav-link is-active" href="index.html">HOME</a>
-<a class="nav-link" href="about.html">ABOUT</a>
-<a class="nav-link" href="projects.html">PROJECTS</a>
-<a class="nav-link" href="resume.html">RESUME</a>
-<a class="nav-link" href="press.html">PRESS</a>
-</nav>
+      <a class="nav-link is-active" href="index.html">HOME</a>
+      <a class="nav-link" href="about.html">ABOUT</a>
+      <a class="nav-link" href="projects.html">PROJECTS</a>
+      <a class="nav-link" href="resume.html">RESUME</a>
+      <a class="nav-link" href="press.html">PRESS</a>
+    </nav>
   </div>
 </header>
 
@@ -451,18 +434,15 @@ z-index:2;
     <figure class="viewer">
       <div class="viewer-wrap">
         <div class="viewer-frame">
-
-         
           <div class="viewer-track" id="viewerTrack"></div>
-
           <div class="viewer-placeholder" id="viewerPlaceholder">IMAGE PREVIEW</div>
 
           <button class="viewer-arrow is-prev" id="prevBtn" aria-label="Previous">
-            <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
           </button>
 
           <button class="viewer-arrow is-next" id="nextBtn" aria-label="Next">
-            <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
           </button>
         </div>
       </div>
@@ -471,21 +451,21 @@ z-index:2;
     </figure>
 
     <aside class="thumbs">
-      <button class="thumb is-selected" data-hero="img/hero-01.webp"><img src="img/thumb-01.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-02.webp"><img src="img/thumb-02.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-03.webp"><img src="img/thumb-03.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-04.webp"><img src="img/thumb-04.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-05.webp"><img src="img/thumb-05.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-06.webp"><img src="img/thumb-06.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-07.webp"><img src="img/thumb-07.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-08.webp"><img src="img/thumb-08.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-09.webp"><img src="img/thumb-09.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-10.webp"><img src="img/thumb-10.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-11.webp"><img src="img/thumb-11.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-12.webp"><img src="img/thumb-12.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-13.webp"><img src="img/thumb-13.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-14.webp"><img src="img/thumb-14.webp" alt=""></button>
-      <button class="thumb" data-hero="img/hero-15.webp"><img src="img/thumb-15.webp" alt=""></button>
+      <button class="thumb is-selected" data-hero="img/hero-01.webp"><img src="img/thumb-01.webp" alt="" fetchpriority="high" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-02.webp"><img src="img/thumb-02.webp" alt="" fetchpriority="high" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-03.webp"><img src="img/thumb-03.webp" alt="" fetchpriority="high" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-04.webp"><img src="img/thumb-04.webp" alt="" loading="lazy" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-05.webp"><img src="img/thumb-05.webp" alt="" loading="lazy" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-06.webp"><img src="img/thumb-06.webp" alt="" loading="lazy" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-07.webp"><img src="img/thumb-07.webp" alt="" loading="lazy" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-08.webp"><img src="img/thumb-08.webp" alt="" loading="lazy" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-09.webp"><img src="img/thumb-09.webp" alt="" loading="lazy" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-10.webp"><img src="img/thumb-10.webp" alt="" loading="lazy" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-11.webp"><img src="img/thumb-11.webp" alt="" loading="lazy" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-12.webp"><img src="img/thumb-12.webp" alt="" loading="lazy" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-13.webp"><img src="img/thumb-13.webp" alt="" loading="lazy" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-14.webp"><img src="img/thumb-14.webp" alt="" loading="lazy" decoding="async"></button>
+      <button class="thumb" data-hero="img/hero-15.webp"><img src="img/thumb-15.webp" alt="" loading="lazy" decoding="async"></button>
     </aside>
   </section>
 </main>
@@ -493,12 +473,23 @@ z-index:2;
 <footer class="site-footer">
   <div class="container-wide footer-inner">
     <div class="footer-icons">
-      <a class="icon-btn home-square-btn" href="index.html"><span class="home-square"></span><span class="home-label">HOME</span></a>
-      <a class="icon-btn" href="https://instagram.com/peortizc" target="_blank" rel="noopener">
-        <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3"/><circle cx="12" cy="12" r="3.5"/></svg>
+      <a class="icon-btn home-square-btn" href="index.html">
+        <span class="home-square"></span>
+        <span class="home-label">HOME</span>
       </a>
+
+      <a class="icon-btn" href="https://instagram.com/peortizc" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="5" y="5" width="14" height="14" rx="3"/>
+          <circle cx="12" cy="12" r="3.5"/>
+        </svg>
+      </a>
+
       <a class="icon-btn" href="mailto:portizca@risd.edu">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M4 7l8 6 8-6"/></svg>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 7h16v10H4z"/>
+          <path d="M4 7l8 6 8-6"/>
+        </svg>
       </a>
     </div>
   </div>
@@ -513,41 +504,20 @@ z-index:2;
   const nextBtn = document.getElementById("nextBtn");
 
   const heroes = [...thumbs].map(t => t.dataset.hero);
+
   let currentIndex = Math.max(
     0,
     heroes.findIndex((_, i) => thumbs[i].classList.contains("is-selected"))
   );
 
-  function showPlaceholder(){ viewerPlaceholder.style.display = "flex"; }
-  function hidePlaceholder(){ viewerPlaceholder.style.display = "none"; }
+  const slideImages = [];
 
-  function buildSlides(){
-    viewerTrack.innerHTML = "";
-    heroes.forEach((src, i) => {
-      const slide = document.createElement("div");
-      slide.className = "viewer-slide";
-
-      const img = document.createElement("img");
-      img.alt = "";
-
-      
-      img.onload = () => { if (i === currentIndex) hidePlaceholder(); };
-      img.onerror = () => { if (i === currentIndex) showPlaceholder(); };
-
-      img.src = src;
-      slide.appendChild(img);
-      viewerTrack.appendChild(slide);
-    });
+  function showPlaceholder(){
+    viewerPlaceholder.style.display = "flex";
   }
 
-  function renderDots(){
-    dotsWrap.innerHTML = "";
-    heroes.forEach((_, i) => {
-      const d = document.createElement("button");
-      d.className = "dot" + (i === currentIndex ? " is-active" : "");
-      d.onclick = () => select(i);
-      dotsWrap.appendChild(d);
-    });
+  function hidePlaceholder(){
+    viewerPlaceholder.style.display = "none";
   }
 
   function clampIndex(i){
@@ -555,17 +525,81 @@ z-index:2;
     return (i % n + n) % n;
   }
 
+  function ensureSlideLoaded(i){
+    const idx = clampIndex(i);
+    const img = slideImages[idx];
+    if (!img || img.dataset.loaded === "true" || img.dataset.loading === "true") return;
+
+    img.dataset.loading = "true";
+    img.decoding = "async";
+
+    img.onload = () => {
+      img.dataset.loaded = "true";
+      img.dataset.loading = "false";
+      if (idx === currentIndex) hidePlaceholder();
+    };
+
+    img.onerror = () => {
+      img.dataset.loading = "false";
+      if (idx === currentIndex) showPlaceholder();
+    };
+
+    img.src = heroes[idx];
+  }
+
+  function preloadNearby(i){
+    ensureSlideLoaded(i);
+    ensureSlideLoaded(i - 1);
+    ensureSlideLoaded(i + 1);
+  }
+
+  function buildSlides(){
+    viewerTrack.innerHTML = "";
+    slideImages.length = 0;
+
+    heroes.forEach(() => {
+      const slide = document.createElement("div");
+      slide.className = "viewer-slide";
+
+      const img = document.createElement("img");
+      img.alt = "";
+      img.dataset.loaded = "false";
+      img.dataset.loading = "false";
+
+      slide.appendChild(img);
+      viewerTrack.appendChild(slide);
+      slideImages.push(img);
+    });
+
+    preloadNearby(currentIndex);
+  }
+
+  function renderDots(){
+    dotsWrap.innerHTML = "";
+    heroes.forEach((_, i) => {
+      const d = document.createElement("button");
+      d.className = "dot" + (i === currentIndex ? " is-active" : "");
+      d.type = "button";
+      d.onclick = () => select(i);
+      dotsWrap.appendChild(d);
+    });
+  }
+
   function updateUI(){
-    // Slide band
     viewerTrack.style.transform = `translateX(${-currentIndex * 100}%)`;
 
-    // Selected thumb
     thumbs.forEach(t => t.classList.remove("is-selected"));
     thumbs[currentIndex]?.classList.add("is-selected");
 
-    // Dots
     [...dotsWrap.children].forEach(d => d.classList.remove("is-active"));
     dotsWrap.children[currentIndex]?.classList.add("is-active");
+
+    showPlaceholder();
+    preloadNearby(currentIndex);
+
+    if (slideImages[currentIndex]?.dataset.loaded === "true") {
+      hidePlaceholder();
+    }
   }
 
   function select(i){
@@ -573,16 +607,19 @@ z-index:2;
     updateUI();
   }
 
-  thumbs.forEach((t, i) => t.onclick = () => select(i));
+  thumbs.forEach((t, i) => {
+    t.type = "button";
+    t.onclick = () => select(i);
+  });
+
   prevBtn.onclick = () => select(currentIndex - 1);
   nextBtn.onclick = () => select(currentIndex + 1);
 
-  // Init
   buildSlides();
   renderDots();
   select(currentIndex);
 
-  // ===== Align right edge of gallery to the right edge of the nav ("PRESS") =====
+  // ===== Align right edge of gallery to the right edge of the nav =====
   const navEl = document.querySelector(".nav");
   const galleryEl = document.querySelector(".gallery");
 
@@ -593,15 +630,17 @@ z-index:2;
 
     const navRight = navEl.getBoundingClientRect().right;
     const galleryRight = galleryEl.getBoundingClientRect().right;
-
     const delta = navRight - galleryRight;
+
     galleryEl.style.transform = `translateX(${Math.round(delta)}px)`;
   }
 
-  window.addEventListener("load", alignGalleryToNavRight);
-  window.addEventListener("resize", alignGalleryToNavRight);
-  setTimeout(alignGalleryToNavRight, 50);
-  setTimeout(alignGalleryToNavRight, 250);
+  function scheduleAlign(){
+    requestAnimationFrame(alignGalleryToNavRight);
+  }
+
+  window.addEventListener("load", scheduleAlign);
+  window.addEventListener("resize", scheduleAlign);
 </script>
 
 </body>
