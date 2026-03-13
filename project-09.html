@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pedro Ortiz Cazal — Capturing Benefit Street</title>
+  <title>Pedro Ortiz Cazal — IMPRINT</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,21 +30,21 @@
 
       /* Layout */
       --content-top-gap: 56px;
-      --grid-gap: 44px;
+      --grid-gap: 56px;
 
       /* Left editorial column */
-      --text-col: 520px;
-      --meta-font: 12px;
-      --body-font: 13.25px;
-      --body-leading: 1.68;
+      --text-col: 600px;
+      --meta-font: 13px;
+      --body-font: 15px;
+      --body-leading: 1.78;
 
       /* Editorial spacing */
-      --meta-bottom: 28px;
-      --block-gap: 34px;
+      --meta-bottom: 32px;
+      --block-gap: 38px;
       --section-title-top: 0;
-      --section-title-bottom: 10px;
-      --paragraph-gap: 14px;
-      --section-gap-after: 18px;
+      --section-title-bottom: 12px;
+      --paragraph-gap: 16px;
+      --section-gap-after: 20px;
 
       /* Footer icons */
       --icon-size: 33px;
@@ -57,6 +57,10 @@
 
       /* Footer clearance */
       --footer-clearance: 96px;
+
+      /* Image sizing */
+      --hero-image-max: 78%;
+      --scroll-image-max: 78%;
     }
 
     *{ box-sizing:border-box }
@@ -159,27 +163,27 @@
 
     .project-title{
       font-family: var(--font-title);
-      font-size: 34px;
+      font-size: 38px;
       font-weight: 600;
       letter-spacing: -0.02em;
       text-transform: uppercase;
-      margin:0 0 8px 0;
+      margin:0 0 10px 0;
       line-height: 1.05;
       color:#111;
     }
 
     .project-subtitle{
-      font-size: 14.5px;
+      font-size: 17px;
       font-weight: 500;
-      margin:0 0 18px 0;
+      margin:0 0 22px 0;
       color:#222;
-      line-height: 1.35;
+      line-height: 1.4;
       max-width: 56ch;
     }
 
     .meta{
       font-size: var(--meta-font);
-      line-height: 1.45;
+      line-height: 1.55;
       color:#111;
       white-space: normal;
       margin: 0 0 var(--meta-bottom) 0;
@@ -201,7 +205,7 @@
 
     .block h3{
       margin: var(--section-title-top) 0 var(--section-title-bottom) 0;
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 600;
       letter-spacing: .18em;
       text-transform: uppercase;
@@ -239,7 +243,7 @@
 
     .hero-frame img{
       width:auto;
-      max-width:100%;
+      max-width: var(--hero-image-max);
       height:auto;
       display:block;
       position:relative;
@@ -276,7 +280,7 @@
 
     .scroll-image-frame img{
       width:auto;
-      max-width:100%;
+      max-width: var(--scroll-image-max);
       height:auto;
       display:block;
       position:relative;
@@ -402,15 +406,28 @@
     @media (max-width: 1100px){
       :root{
         --wide-pad: 28px;
-        --grid-gap: 28px;
-        --text-col: 460px;
+        --grid-gap: 32px;
+        --text-col: 520px;
+        --hero-image-max: 86%;
+        --scroll-image-max: 86%;
       }
       .nav{ margin-left: 0; }
     }
 
     @media (max-width: 900px){
+      :root{
+        --text-col: 100%;
+        --body-font: 14.5px;
+        --meta-font: 12.75px;
+        --hero-image-max: 100%;
+        --scroll-image-max: 100%;
+      }
+
       .project-grid{ grid-template-columns: 1fr; }
       .project-left{ max-width: 680px; }
+
+      .project-title{ font-size: 34px; }
+      .project-subtitle{ font-size: 16px; }
     }
   </style>
 </head>
@@ -439,57 +456,50 @@
     <div class="project-grid">
 
       <div class="project-left">
-        <h1 class="project-title js-hero-title">CAPTURING BENEFIT STREET</h1>
-        <p class="project-subtitle js-hero-subtitle">Representation &amp; Allegory</p>
+        <h1 class="project-title js-hero-title">IMPRINT</h1>
+        <p class="project-subtitle js-hero-subtitle">Custom Cast Ring</p>
 
         <div class="meta js-meta">
+          <div><b>Concept:</b> An exploration of form, surface continuity, and memory expressed through wearable architecture.</div>
           <div><b>Architect:</b> Pedro Ortiz</div>
-          <div><b>Project Category:</b> Academic, Making Discourse Seminar</div>
-          <div><b>Institution:</b> Rhode Island School of Design, Rhode Island</div>
-          <div><b>Media:</b> AutoCad, Rhino8, Adobe Illustrator</div>
-          <div><b>Methods:</b> Laser Cutting, Wood Engraving, Wood Milling</div>
-          <div><b>Category:</b> Theory, Representation &amp; Fabrication</div>
-          <div><b>Materials:</b> Plywood, Cherry wood, Water based pigments</div>
+          <div><b>Project Category:</b> Academic — Graduate Design Studio</div>
+          <div><b>Institution:</b> University of California, Davis</div>
+          <div><b>Media:</b> Rhino, Illustrator, 3D-Printed Lost-Wax Casting</div>
+          <div><b>Location:</b> California, USA</div>
+          <div><b>Structure:</b> 14K Gold-Plated Copper</div>
+          <div><b>Materials:</b> Copper, Gold, Wax</div>
         </div>
 
         <div class="project-body js-body">
 
           <div class="block">
-            <h3>Concept</h3>
+            <h3>Background</h3>
             <p>
-              Conceived as a theatrical artifact, this model frames Frazier Terrace in College Hill, Providence as an urban stage. Inspired by Aldo Rossi’s <i>Teatrino Scientifico</i>, the project takes the form of a box resembling one of the historic houses along the street.
-            </p>
-            <p>
-              When closed, the object appears as a singular architectural figure; when opened, it unfolds to reveal a miniature reconstruction of the terraces and surrounding buildings contained within.
+              IMPRINT investigates how architectural thinking can translate to object scale. The project explores mass, proportion, and surface continuity—principles commonly applied to buildings—through the design of a wearable artifact.
             </p>
             <p class="section-end">
-              The model operates simultaneously as architecture, stage, and allegory.
-            </p>
-
-            <h3>Architecture as Stage</h3>
-            <p>
-              Like a dollhouse or theatrical set, its opening façades function as wings that frame the scene of the city inside.
-            </p>
-            <p class="section-end">
-              The gesture suggests a reciprocal relationship between object and context: the historic block contains each individual building, yet each building also carries the image of the entire place within it. In this sense, the box becomes a device for reflecting on the inseparability of architecture and its urban surroundings.
+              Developed digitally in Rhino and fabricated through a lost-wax casting process, the piece bridges computational modeling with traditional metal casting techniques, allowing precise control over geometry and surface articulation.
             </p>
           </div>
 
           <div class="block">
-            <h3>Process</h3>
+            <h3>Design Strategy</h3>
             <p class="section-end">
-              The project originates from a prior mapping exercise of Frazier Terrace, developed further through ideation and prototyping.
+              The ring’s geometry draws inspiration from the compositional clarity of classical Roman architecture, emphasizing solidity, balance, and refined surfaces rather than ornamental complexity. The form is intentionally restrained: a continuous band whose proportions and polished finish convey permanence, durability, and tactile elegance.
             </p>
+          </div>
 
-            <h3>Background</h3>
-            <p>
-              The project originates from this mapping exercise of Frazier Terrace, where rather than interpreting the terraces simply as a park, the site was understood as a spatial void that binds the surrounding historic architecture together.
+          <div class="block">
+            <h3>Embedded Narrative</h3>
+            <p class="section-end">
+              Within the minimal geometry, a subtle personal marker is integrated into the band: an embossed imprint derived from the nose of the client’s first dog, Copper. This detail transforms the object from a purely formal study into a personal artifact. The name “Copper” is engraved along the sides in a classical Roman typeface, reinforcing the historical references embedded within the design.
             </p>
+          </div>
+
+          <div class="block">
+            <h3>Material Logic</h3>
             <p>
-              The drawing combined plan and elevation through unconventional techniques such as unrolled façades and shifting orientations that initially appear orthographic but gradually reveal a layered and discursive representation of the block.
-            </p>
-            <p>
-              The theater model transforms this drawing into a spatial narrative, staging the terraces as both subject and scene.
+              The ring is cast in copper and finished with a 14K gold plating. The copper core provides strength and warmth, while the gold surface introduces refinement and durability. This layered material approach emphasizes the relationship between structural core and finished surface, reinforcing the piece’s dual identity as both crafted object and personal heirloom.
             </p>
           </div>
 
@@ -499,8 +509,8 @@
       <div class="project-right">
         <div class="hero-frame photo-reveal js-hero-photo">
           <img
-            src="img/projects/project 4/m-01.webp"
-            alt="Capturing Benefit Street — hero image"
+            src="img/projects/project 9/r-01.webp"
+            alt="IMPRINT — hero image"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
           />
           <div class="hero-fallback" style="display:none;">HERO IMAGE</div>
@@ -509,8 +519,8 @@
         <section class="project-scroll-test js-scroll-test">
           <div class="scroll-image-frame photo-reveal js-scroll-photo">
             <img
-              src="img/projects/project 4/m-02.webp"
-              alt="Capturing Benefit Street — image 2"
+              src="img/projects/project 9/r-02.webp"
+              alt="IMPRINT — image 2"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
             <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
@@ -520,8 +530,8 @@
         <section class="project-scroll-test js-scroll-test">
           <div class="scroll-image-frame photo-reveal js-scroll-photo">
             <img
-              src="img/projects/project 4/m-03.webp"
-              alt="Capturing Benefit Street — image 3"
+              src="img/projects/project 9/r-03.webp"
+              alt="IMPRINT — image 3"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
             <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
@@ -531,8 +541,41 @@
         <section class="project-scroll-test js-scroll-test">
           <div class="scroll-image-frame photo-reveal js-scroll-photo">
             <img
-              src="img/projects/project 4/m-04.webp"
-              alt="Capturing Benefit Street — image 4"
+              src="img/projects/project 9/r-04.webp"
+              alt="IMPRINT — image 4"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 9/r-05.webp"
+              alt="IMPRINT — image 5"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 9/r-06.webp"
+              alt="IMPRINT — image 6"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
+          </div>
+        </section>
+
+        <section class="project-scroll-test js-scroll-test">
+          <div class="scroll-image-frame photo-reveal js-scroll-photo">
+            <img
+              src="img/projects/project 9/r-07.webp"
+              alt="IMPRINT — image 7"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
             <div class="scroll-fallback" style="display:none;">LARGE IMAGE</div>
